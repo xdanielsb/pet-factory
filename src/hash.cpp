@@ -1,11 +1,18 @@
 #include <algorithm>
-
+#define size_hash_table 1024
 
 inline int get_hash (string name){
     //This line transform to lower case the name
     transform(name.begin(), name.end(), name.begin(), ::tolower);
     hash<string> hash_fn;
-    cout << name << endl;
     size_t h1 = hash_fn(name);
-    return (int) h1;
+    return  h1 % size_hash_table;
+}
+
+inline void example_hash_values(){
+    cout << get_hash("daniel") << endl;
+    cout << get_hash("maria") << endl;
+    cout << get_hash("camila") << endl;
+    cout << get_hash("paula") << endl;
+    cout << get_hash("mafe") << endl;
 }
