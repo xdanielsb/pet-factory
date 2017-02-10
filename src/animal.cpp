@@ -3,14 +3,17 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+/*it's happening a weird thing*/
 struct animal{
-    string name;
-    string type;
-    int age;
-    string breed;
-    int height;
-    int weight;
-    char genre;
+
+    string name;   //8 bytes
+    string type;   //8 bytes
+    string breed;  //8 bytes
+    char genre;    //1 byte  
+    int age;       //4 bytes
+    int height;    //4 bytes
+    int weight;    //4 bytes
+    
 
     animal(){}
 
@@ -27,6 +30,7 @@ struct animal{
 
     }
 };
+
 
 inline void show(animal a){
 
