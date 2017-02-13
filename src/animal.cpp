@@ -9,6 +9,7 @@ struct animal{
     int age;       //4 bytes
     int height;    //4 bytes
     int weight;    //4 bytes
+    int pos;       //THis is the next position for a structure that has the same hash.
     
 
     animal(){}
