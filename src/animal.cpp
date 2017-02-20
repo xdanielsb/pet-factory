@@ -9,7 +9,6 @@ struct animal{
     int age;       //4 bytes
     int height;    //4 bytes
     int weight;    //4 bytes
-    int pos;       //THis is the next position for a structure that has the same hash.
     
 
     animal(){}
@@ -28,6 +27,15 @@ struct animal{
     }
 };
 
+
+inline void write_animal(animal a ){
+    int hash_name = get_hash(a.name);
+    
+}
+
+inline void read_animal(animal a){
+
+}
 
 inline void show(animal a){
 
