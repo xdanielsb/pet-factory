@@ -1,4 +1,5 @@
 
+
 /*it's happening a weird thing*/
 struct animal{
 
@@ -26,26 +27,4 @@ struct animal{
 
     }
 };
-
-
-inline void write_animal(animal a ){
-    int hash_name = get_hash(a.name);
-    
-}
-
-inline void read_animal(animal a){
-
-}
-
-inline void show(animal a){
-
-    cout << "Name: " << a.name << endl;
-    cout << "Type: " << a.type << endl;
-    cout << "Age: " << a.age << endl;
-    cout << "Breed: " << a.breed << endl;
-    cout << "Height: " << a.height << endl;
-    cout << "Weight: " << a.weight << endl;
-    cout << "Genre: " << a.genre << endl;
-
-}
 

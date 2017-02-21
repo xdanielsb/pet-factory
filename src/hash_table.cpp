@@ -1,14 +1,12 @@
 #define size_hash_table 1024
 
-static linked_list hash_table_data [size_hash_table];
-
 struct linked_list{
-    int pos=NULL;
+    int pos ;
     linked_list * next;
-}
+};
 
-inline void show(linked_list *head){
-    while (head != NULL){
+inline void show_linked_list(linked_list *head){
+    while (head != nullptr){
         cout << head->pos << " ";
     }
     cout << endl;

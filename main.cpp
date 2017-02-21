@@ -5,9 +5,17 @@
 
 using namespace std;
 
+
+/*This order must be followed*/
+
+//-----No dependencies 
 #include "src/animal.cpp"
 #include "src/hash.cpp"
-#include "src/file.cpp"
+#include "src/hash_table.cpp"
+
+//-----Dependencies
+#include "src/file.cpp" 
+#include "src/animal_controller.cpp" //Depend on file
 
 
 /* Good reference for input output
@@ -25,9 +33,10 @@ int main(){
     
     /* cout << "string: " << sizeof (string) << endl;
     cout << "Animal size: " << sizeof(animal) << endl;*/
-
-    write(a1);
-    read("Tris");
+    
+    write_animal(a1);
+    read_animal(a1);
+    
 
   //  show(a1);
     return 0;
