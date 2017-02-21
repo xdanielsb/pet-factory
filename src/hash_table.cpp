@@ -19,11 +19,14 @@ inline void show_linked_list(node *head){
 }
 
 inline void show_hash_table (hash_table a ){
-    for (int i=0 ; i< size_hash_table; i++)
-        show_linked_list(a[i]); 
+    for (int i=0 ; i< size_hash_table; i++){
+        if (a[i]){
+            show_linked_list(a[i]); 
+        }else{
+            cout << "That location does not exist";
+        }
+    }
 }
-
-
 
 inline void insert_linked_list(node * &linked, int p){
     node *n = new node;
@@ -49,5 +52,4 @@ inline hash_table get_hash_table(){
     positions = new node* [size_hash_table];
     return positions;
 }
-
 

@@ -2,6 +2,12 @@
 #define NUM_DATA 1
 FILE *data;
 
+
+//
+// THIS IS FOR THE DATA
+//
+
+
 inline void write_file(animal &a,int pos){
     data = fopen("var/data.bin", "wb");
     if (data != NULL) { //SUCCESS OPERATION?
@@ -30,6 +36,10 @@ inline void read_file(string name, int pos){
 }
 
 
+//
+// THIS IS FOR HASH TABLES
+//
+
 /*
  * Write hash table in disk
  */
@@ -46,15 +56,20 @@ inline void write_hash_table(hash_table a){
 /*
  * Read Hash table and load into memory
  */
-inline void read_hash_table(){
+inline hash_table read_hash_table(){
     data = fopen("var/hash.txt", "r");
     hash_table a;
     if (data != NULL) { //SUCCESS OPERATION?
-        fread(&a,sizeof(animal),NUM_DATA,data);
-        show_hash_table(a);
+        cout << "Loading hash table \n "<<  endl;
+        fread(&a,sizeof(hash_table),NUM_DATA,data);
+        
+        //show_linked_list(a[0])
+        //show_hash_table(a);
         fclose(data);
+        return a;
     }else{ 
         cout << "Error opening the data" << endl;
+        return nullptr;
     }
 
 }

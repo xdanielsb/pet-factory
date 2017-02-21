@@ -6,9 +6,9 @@ inline void write_animal(animal a ){
     write_file(a, hash_name);   
 }
     
-inline void read_animal(animal a){
-    int hash_name = get_hash(a.name);
-    read_file(a.name, hash_name);
+inline void read_animal(string name){
+    int hash_name = get_hash(name);
+    read_file(name, hash_name);
 }
 
 inline void show_animal(animal a){
