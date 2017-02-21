@@ -27,7 +27,13 @@ using namespace std;
  */
 
 
-int main(){
+
+/*
+ * This example, I show how to create an animal, writing in disk and 
+ * Finally read that Animal in disk. 
+ */
+void example_write_show_animal(){
+
     
     animal a1("Tris", "perro", 1, "Criollo", 30, 35, 'F');  
     
@@ -37,7 +43,34 @@ int main(){
     write_animal(a1);
     read_animal(a1);
     
-
   //  show(a1);
+}
+
+
+/*
+ * In this example I show how to create  a hash_table, 
+ * insert some items and after that show that linked list. 
+ */
+
+void example_creating_hash_table(){
+    hash_table  a = get_hash_table();
+    
+    int hash = 2; 
+    node * linked  = a[hash];    
+    insert_linked_list(linked, 123);
+    insert_linked_list(linked, 428);
+    insert_linked_list(linked, 429);
+
+    a[hash] = linked; //This is the tricky part, bullshit 
+
+   // show_linked_list (a[hash]);
+
+    write_hash_table(a);
+    read_hash_table();
+
+}
+
+int main(){
+    example_creating_hash_table();
     return 0;
 }

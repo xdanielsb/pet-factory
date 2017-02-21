@@ -28,3 +28,35 @@ inline void read_file(string name, int pos){
     }
 
 }
+
+
+/*
+ * Write hash table in disk
+ */
+inline void write_hash_table(hash_table a){
+    data = fopen("var/hash.txt", "w");
+    if (data != NULL) { //SUCCESS OPERATION?
+        fwrite(&a, sizeof(hash_table), NUM_DATA, data);
+        fclose(data);
+    }else{
+        cout << "Error opening the hash table." << endl;
+    }
+}
+
+/*
+ * Read Hash table and load into memory
+ */
+inline void read_hash_table(){
+    data = fopen("var/hash.txt", "r");
+    hash_table a;
+    if (data != NULL) { //SUCCESS OPERATION?
+        fread(&a,sizeof(animal),NUM_DATA,data);
+        show_hash_table(a);
+        fclose(data);
+    }else{ 
+        cout << "Error opening the data" << endl;
+    }
+
+}
+
+
