@@ -6,12 +6,8 @@
 #include <vector>
 
 #define NUM_DATA 1
+
 FILE *myfile;
-
-
-//
-// THIS IS FOR THE DATA
-//
 
 
 inline void write_file(animal a,int pos){

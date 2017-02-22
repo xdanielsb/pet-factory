@@ -1,19 +1,31 @@
 #define size_hash_table 1024
 
-struct node{
-    int pos ;
-    node * next;
-};
 
-typedef node ** hash_table;
+static ll LOC = 0;
+static vvi data(size_hash_table);
+
+/*
+ * This function creates a location in disk and assign 
+ * writes the animal to the new location
+ */
+inline  int persist_register(animal a ){
+    ll code =LOC;
+    write_animal(a,code);
+    LOC++;
+    return code;
+}
 
 
 /*
- * Get hash table
+ * Show the hash table, each row represents a new hash
  */
-inline hash_table get_hash_table(){
-    hash_table positions;
-    positions = new node* [size_hash_table];
-    return positions;
+inline  void show_hash_table(){
+    for(int i=0; i< size_hash_table; i++){
+        ll num_columns = data[i].size();
+        for(int j=0; j< num_columns; j++){
+            cout << data[i][j]  << " ";
+        }
+        cout << i << " "<< num_columns << endl;
+    }
 }
 

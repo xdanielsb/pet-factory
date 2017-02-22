@@ -14,14 +14,18 @@ using namespace std;
 //-----No dependencies 
 #include "src/animal.cpp"
 #include "src/hash.cpp"
-#include "src/hash_table.cpp"
+
 
 
 //-----Dependencies
-#include "src/file.cpp" 
+#include "src/random.cpp"
+#include "src/file_animal.cpp" 
 #include "src/animal_controller.cpp" //Depend on file
-#include "src/controller.cpp"
+#include "src/hash_table.cpp"        //Use animal controller for writing animals
+#include "src/controller_application.cpp"
 #include "src/test.cpp"
+
+
 
 void launch_application(){
 
@@ -31,13 +35,13 @@ void launch_application(){
     //Faster input and output
     cin.tie(NULL); 
    
-
     //Load the data
     load_data();
 
     //Finish timer
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> diff = end-start;
+
     //Display timer
     cout << "\nTime initializing the application: " << diff.count() << endl ;
 

@@ -9,8 +9,8 @@ inline  void example_write_show_animal(){
     string breed = "Criollo";
     char genre = 'F';    
     int32_t age = 30;       
-    int32_t height = 5;    
-    int32_t weight = 25;    
+    int32_t height = 7;    
+    int32_t weight = 10;    
     
     animal a1(name, type, age, breed, height, weight, genre);  
     
@@ -19,14 +19,13 @@ inline  void example_write_show_animal(){
     
     persist_register(a1);
 
-
-   name = "Motas"; 
-   type  = "Canario"; 
-   breed = "Pura";
-   genre = 'M';    
-   age = 2;       
-   height = 5;    
-   weight = 25;    
+    name = "Motas"; 
+    type  = "Canario"; 
+    breed = "Pura";
+    genre = 'M';    
+    age = 2;       
+    height = 15;    
+    weight = 20;    
     
     animal a2(name, type, age, breed, height, weight, genre);  
     
@@ -34,8 +33,8 @@ inline  void example_write_show_animal(){
     persist_register(a2);
 
    // write_animal(a1,pos);
+    read_animal(0);
     read_animal(1);
-    read_animal(2);
   //  show(a1);
 }
 

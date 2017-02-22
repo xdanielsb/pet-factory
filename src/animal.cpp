@@ -21,7 +21,7 @@ struct animal{
     animal(){}
 
     animal(string _name, string _type, int32_t _age, \
-        string _breed, int _height, int32_t _weight, char _genre){
+        string _breed, int32_t _height, int32_t _weight, char _genre){
 
         strcpy(name,_name.c_str());
         strcpy(type,_type.c_str());
@@ -29,6 +29,7 @@ struct animal{
         height = _height;
         weight = _weight;
         genre = _genre;
+        age = _age;
 
     }
 };
