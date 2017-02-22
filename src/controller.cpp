@@ -15,7 +15,8 @@ double randDouble(double max, double min){
 
     double aleat_doub=0.0;
     aleat_doub= drand48()*(max-min)+min;
-    return aleat_doub;}
+    return aleat_doub;
+}
 
 
 

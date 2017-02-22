@@ -33,3 +33,28 @@ struct animal{
     }
 };
 
+inline string to_string(animal a){
+    string data= "";
+    string aa(a.name);
+    string bb(a.type);
+    string cc(a.breed);
+    data += "Name: " + aa +"\n";
+    data += "Type: " + bb +"\n";    
+    data += "Breed: " + cc +"\n";
+    return data;
+
+}
+
+inline void show_animal(animal a){
+    cout << endl;
+    cout << "Name: " << a.name << endl;
+    cout << "Type: " << a.type << endl;
+    cout << "Age: " << a.age << endl;
+    cout << "Breed: " << a.breed << endl;
+    cout << "Height: " << a.height << endl;
+    cout << "Weight: " << a.weight << endl;
+    cout << "Genre: " << a.genre << endl;
+
+}
+
+

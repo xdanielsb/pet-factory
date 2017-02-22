@@ -33,7 +33,6 @@ inline animal read_file(int pos){
         cout << "read pos:  " << pos <<  " * sizeof(animal)" << endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
         fread(&a,sizeof(animal),NUM_DATA,myfile);
-        cout << "Name: "<< a.name << endl;
         fclose(myfile);
         return a;
     }else{ 

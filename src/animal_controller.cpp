@@ -1,7 +1,13 @@
-
+#include <stdlib.h>
 
 inline void read_animal(int pos){
-    read_file(pos);
+    animal a = read_file(pos);
+
+    string cadena = "echo  \"The animal that was readen from disk was: \n Name: "+to_string(a)+ " \" > hist.clinic "; 
+
+    system(cadena.c_str());
+    system("gedit hist.clinic");
+    show_animal(a);
 }
 
 inline void write_animal(animal a, ll pos ){
@@ -9,16 +15,4 @@ inline void write_animal(animal a, ll pos ){
   // read_animal(pos);
 }
     
-
-inline void show_animal(animal a){
-    cout << endl;
-    cout << "Name: " << a.name << endl;
-    cout << "Type: " << a.type << endl;
-    cout << "Age: " << a.age << endl;
-    cout << "Breed: " << a.breed << endl;
-    cout << "Height: " << a.height << endl;
-    cout << "Weight: " << a.weight << endl;
-    cout << "Genre: " << a.genre << endl;
-
-}
 

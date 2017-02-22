@@ -70,7 +70,7 @@ inline  void example_write_show_animal(){
 
    // write_animal(a1,pos);
     read_animal(1);
-      read_animal(2);
+    read_animal(2);
   //  show(a1);
 }
 
