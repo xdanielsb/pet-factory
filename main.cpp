@@ -4,7 +4,7 @@
 #include <string>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
-
+#include <chrono>       /* count the time */
 
 using namespace std;
 /* Good reference for input output
@@ -35,8 +35,16 @@ using namespace std;
 
 
 int main(){
-
+    auto start = chrono::high_resolution_clock::now();
+    
     init_application();
+
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> diff = end-start;
+    cout << "\nTime initializing the application: " << diff.count() << endl ;
+
+
+
  // example_loading_hash_table();
  //  example_creating_hash_table();
  // example_write_show_animal();

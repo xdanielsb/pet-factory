@@ -84,5 +84,5 @@ void init_application(){
     }
 
  
-    show_registers(data);
+    //show_registers(data);
 }
