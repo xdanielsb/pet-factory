@@ -39,21 +39,38 @@ inline  void example_loading_hash_table(){
  */
 inline  void example_write_show_animal(){
     //animal a1;
-    char name[32] = "Tris"; 
-    char type[32]  = "Perro"; 
-    char breed[16] = "Criollo";
+    string name = "Tris"; 
+    string type  = "Perro"; 
+    string breed = "Criollo";
     char genre = 'F';    
     int32_t age = 30;       
-    int32_t height=5;    
-    int32_t weight=25;    
+    int32_t height = 5;    
+    int32_t weight = 25;    
     
     animal a1(name, type, age, breed, height, weight, genre);  
     
     /* cout << "string: " << sizeof (string) << endl;
     cout << "Animal size: " << sizeof(animal) << endl;*/
-    int pos = 1;
-    write_animal(a1,pos);
-    read_animal(pos);
+    
+    persist_register(a1);
+
+
+   name = "Motas"; 
+   type  = "Canario"; 
+   breed = "Pura";
+   genre = 'M';    
+   age = 2;       
+   height = 5;    
+   weight = 25;    
+    
+    animal a2(name, type, age, breed, height, weight, genre);  
+    
+
+    persist_register(a2);
+
+   // write_animal(a1,pos);
+    read_animal(1);
+      read_animal(2);
   //  show(a1);
 }
 

@@ -1,4 +1,4 @@
-#define NUM_DOGS 1000
+#define NUM_DOGS 3
 #define NRPC 20000 //Number of registers per column
 
 static ll LOC = 1;
@@ -24,6 +24,7 @@ double randDouble(double max, double min){
  *
  */
 inline  void show_registers(){
+    //for(int i=0; i< NUM_DOGS; i++){
     for(int i=0; i< size_hash_table; i++){
         ll num_columns = data[i].size();
         /*for(int j=0; j< kdnum_columns; j++){
@@ -37,8 +38,8 @@ inline  int persist_register(animal a ){
     /*ll start = hash * NRPC;
     int num_columns = data[hash].size();
     ll code = num_columns+ start;*/
-    ll code =LOC;
-    write_animal(a,LOC++);
+    ll code =LOC++;
+    write_animal(a,code);
     return code;
 }
 
@@ -52,9 +53,9 @@ inline  animal gen_random(char name[32], const int len) {
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "abcdefghijklmnopqrstuvwxyz";
 
-    string types[32] = {"perro", "gato", "tortuga", "mariposa", "ave", "leon"};  
-    string breeds[16] = {"Criollo", "Pura", "Semental", "Super", "Saiyajin"};  
-    char genres[2] = {'F', 'M'};    //1 bytes 
+    string types[] = {"perro", "gato", "tortuga", "mariposa", "ave", "leon"};  
+    string breeds[] = {"Criollo", "Pura", "Semental", "Super", "Saiyajin"};  
+    char genres[] = {'F', 'M'};    //1 bytes 
 
     int32_t age = (int32_t)randInt(20,0);
     int32_t height = (int32_t)randInt(100,10);    
@@ -72,7 +73,8 @@ inline  animal gen_random(char name[32], const int len) {
 
     string aaa(name);
     
-    animal a1(aaa, type, age, breed,height, weight, genre);  
+    
+    animal a1(name, type, age, breed,height, weight, genre);  
     
     //Take care the order of importations that you do in your project
     //show_animal(a1);
@@ -105,7 +107,7 @@ inline  void load_data(){
     }
 
  
-    //show_registers(data);
+    show_registers();
 }
 
 inline void insert(){

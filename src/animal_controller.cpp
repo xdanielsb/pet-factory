@@ -6,7 +6,7 @@ inline void read_animal(int pos){
 
 inline void write_animal(animal a, ll pos ){
     write_file(a, pos);   
-   read_animal(pos);
+  // read_animal(pos);
 }
     
 
