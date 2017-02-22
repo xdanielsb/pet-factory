@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <functional>
 #include <string>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 
 using namespace std;
 
@@ -12,6 +15,7 @@ using namespace std;
 #include "src/animal.cpp"
 #include "src/hash.cpp"
 #include "src/hash_table.cpp"
+#include "src/controller.cpp"
 
 //-----Dependencies
 #include "src/file.cpp" 
@@ -60,28 +64,31 @@ void example_creating_hash_table(){
                                        //Just a example
     int hash = 15; 
     node * linked  = a[hash];    
-    insert_linked_list(linked, 123);
-    insert_linked_list(linked, 428);
+    insert_linked_list(linked, 231);
+    insert_linked_list(linked, 543);
     insert_linked_list(linked, 429);
 
     a[hash] = linked; //This is the tricky part, bullshit 
 
    // show_linked_list (a[hash]);
 
-    write_hash_table(a);
-    read_hash_table();
+   // write_hash_table(a);
+   // read_hash_table();
 
 }
-
-
 
 void example_loading_hash_table(){
     hash_table a = read_hash_table();
+    
 }
 
+
+
 int main(){
+
+    init_application();
  // example_loading_hash_table();
-   example_creating_hash_table();
+ //  example_creating_hash_table();
  // example_write_show_animal();
     return 0;
 }

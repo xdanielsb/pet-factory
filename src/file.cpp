@@ -1,6 +1,9 @@
 #include <stdio.h>
-#include <string>
-#include <fstream>
+#include <string.h>
+#include <fstream>  //ifstream
+#include <stdlib.h> //strtok
+#include <sstream>
+#include <vector>
 
 #define NUM_DATA 1
 FILE *data;
@@ -53,14 +56,20 @@ inline void write_hash_table(hash_table a){
     if (data != NULL) { //SUCCESS OPERATION?
         for (int i =0; i< size_hash_table; i++){
             node *aux = a[i];
+            string name = to_string(i)+",";
+            string val = name;
             while (aux != nullptr){
                 if(aux->pos !=0){
-                    string val = to_string(aux->pos)+ ","; 
-                    fwrite(val.c_str(), sizeof(val.c_str()), NUM_DATA, data);
+                    val += to_string(aux->pos)+ ","; 
                 }
                 aux = aux->next;
             }
-            fwrite("\n", sizeof("\n"), NUM_DATA, data);
+            cout << val << endl;
+            const char * d = val.c_str();
+
+            fwrite(d, sizeof(d), NUM_DATA, data);
+            //val += "\r";
+            
         }
         fclose(data);
     }else{
@@ -74,16 +83,18 @@ inline void write_hash_table(hash_table a){
 inline hash_table read_hash_table(){
     string line; 
     ifstream myfile ("var/hash.txt");
-    const char *p;
-    char *q;
-    int counter = 0;
+
     
-    hash_table a;
+    int counter = 0; //hash line
+    hash_table  a = get_hash_table();
+    
+    const char *p;
+	char *q;  
     if (myfile.is_open()) { //SUCCESS OPERATION?
         while(getline(myfile,line)){
-            cout <<counter << " "<< line ;
-            counter++;
-            cout << endl;
+            
+            node * linked  = a[counter];    
+          
         }
         
         return a;
