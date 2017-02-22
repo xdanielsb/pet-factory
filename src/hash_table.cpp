@@ -1,16 +1,13 @@
 #define size_hash_table 1024
 
-
 static ll LOC = 0;
 static vvi data(size_hash_table);
-
 /*
  * This function creates a location in disk and assign 
  * writes the animal to the new location
  */
-inline  int persist_register(animal a ){
+inline int get_code (){
     ll code =LOC;
-    write_animal(a,code);
     LOC++;
     return code;
 }

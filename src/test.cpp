@@ -17,7 +17,7 @@ inline  void example_write_show_animal(){
     /* cout << "string: " << sizeof (string) << endl;
     cout << "Animal size: " << sizeof(animal) << endl;*/
     
-    persist_register(a1);
+    int code1 =  write_animal(a1);
 
     name = "Motas"; 
     type  = "Canario"; 
@@ -30,11 +30,11 @@ inline  void example_write_show_animal(){
     animal a2(name, type, age, breed, height, weight, genre);  
     
 
-    persist_register(a2);
+    int code2 =  write_animal(a2);
 
    // write_animal(a1,pos);
-    read_animal(0);
-    read_animal(1);
+    read_animal(code1);
+    read_animal(code2);
   //  show(a1);
 }
 

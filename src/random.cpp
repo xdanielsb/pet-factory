@@ -1,22 +1,24 @@
+#define NUM_DOGS 1000  //Number of dogs that is going to be used in the project
+
 /*
  * Create random int numbers 
  */
 int randInt(int max, int min){
-    return rand()%(max - min)+min; 
+    return rand()%(max - min) + min; 
 }
 
 /*
  * Create random double numbers
  */
 double randDouble(double max, double min){
-    return drand48()*(max-min)+min;
+    return drand48() * ( max - min ) + min;
 }
 
 
 /*
  * Function for creating random animals
  */
-inline  animal gen_random(char name[32], const int len) {
+inline  animal create_random_animal(char name[32], const int len) {
     
     static const char alphanum[] =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -50,4 +52,21 @@ inline  animal gen_random(char name[32], const int len) {
     return a1;
 }
 
+inline  void create_random_data(){
+    srand (time(NULL));  //Necesary when I am going to generate random numbers
+    int len = 7;         //Len of the names 
+    
+    for (ll i = 0; i<= NUM_DOGS; i++){
+        char *s = new char[len];
+        //Get random name
+        animal aux =  create_random_animal(s, len);
+        ll hash = get_hash(aux.name);
+        ll code = write_animal(aux);
+        data[hash].push_back(code);
+        delete s;
+    }
+
+ 
+    show_hash_table();
+}
 

@@ -18,12 +18,13 @@ using namespace std;
 
 
 //-----Dependencies
-#include "src/random.cpp"
-#include "src/file_animal.cpp" 
-#include "src/animal_controller.cpp" //Depend on file
-#include "src/hash_table.cpp"        //Use animal controller for writing animals
-#include "src/controller_application.cpp"
+
+
+#include "src/hash_table.cpp"              
+#include "src/animal_controller.cpp" 
+#include "src/controller_application.cpp"  //Declare animal
 #include "src/test.cpp"
+#include "src/random.cpp"            //Use hash_table for show
 
 
 
@@ -35,8 +36,8 @@ void launch_application(){
     //Faster input and output
     cin.tie(NULL); 
    
-    //Load the data
-    load_data();
+    //Create random data
+    create_random_data();
 
     //Finish timer
     auto end = chrono::high_resolution_clock::now();
