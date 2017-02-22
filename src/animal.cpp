@@ -6,7 +6,7 @@ struct animal{
     string name;   //8 bytes
     string type;   //8 bytes
     string breed;  //8 bytes
-    char genre;    //1 byte  
+    char genre;    //1 bytes 
     int age;       //4 bytes
     int height;    //4 bytes
     int weight;    //4 bytes

@@ -23,7 +23,7 @@ inline void show_hash_table (hash_table a ){
         if (a[i]){
             show_linked_list(a[i]); 
         }else{
-            cout << "That location does not exist";
+            //Do nothing   
         }
     }
 }

@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <string>
+#include <fstream>
+
 #define NUM_DATA 1
 FILE *data;
 
@@ -40,13 +43,25 @@ inline void read_file(string name, int pos){
 // THIS IS FOR HASH TABLES
 //
 
+
+
 /*
  * Write hash table in disk
  */
 inline void write_hash_table(hash_table a){
     data = fopen("var/hash.txt", "w");
     if (data != NULL) { //SUCCESS OPERATION?
-        fwrite(&a, sizeof(hash_table), NUM_DATA, data);
+        for (int i =0; i< size_hash_table; i++){
+            node *aux = a[i];
+            while (aux != nullptr){
+                if(aux->pos !=0){
+                    string val = to_string(aux->pos)+ ","; 
+                    fwrite(val.c_str(), sizeof(val.c_str()), NUM_DATA, data);
+                }
+                aux = aux->next;
+            }
+            fwrite("\n", sizeof("\n"), NUM_DATA, data);
+        }
         fclose(data);
     }else{
         cout << "Error opening the hash table." << endl;
@@ -57,15 +72,20 @@ inline void write_hash_table(hash_table a){
  * Read Hash table and load into memory
  */
 inline hash_table read_hash_table(){
-    data = fopen("var/hash.txt", "r");
+    string line; 
+    ifstream myfile ("var/hash.txt");
+    const char *p;
+    char *q;
+    int counter = 0;
+    
     hash_table a;
-    if (data != NULL) { //SUCCESS OPERATION?
-        cout << "Loading hash table \n "<<  endl;
-        fread(&a,sizeof(hash_table),NUM_DATA,data);
+    if (myfile.is_open()) { //SUCCESS OPERATION?
+        while(getline(myfile,line)){
+            cout <<counter << " "<< line ;
+            counter++;
+            cout << endl;
+        }
         
-        //show_linked_list(a[0])
-        //show_hash_table(a);
-        fclose(data);
         return a;
     }else{ 
         cout << "Error opening the data" << endl;

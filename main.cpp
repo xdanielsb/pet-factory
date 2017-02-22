@@ -58,7 +58,7 @@ void example_creating_hash_table(){
     hash_table  a = get_hash_table();  //This create the hash table from scratch
                                        //In another situation we need to load first
                                        //Just a example
-    int hash = 2; 
+    int hash = 15; 
     node * linked  = a[hash];    
     insert_linked_list(linked, 123);
     insert_linked_list(linked, 428);
@@ -80,8 +80,8 @@ void example_loading_hash_table(){
 }
 
 int main(){
- //  example_loading_hash_table();
-  // example_creating_hash_table();
-  example_write_show_animal();
+ // example_loading_hash_table();
+   example_creating_hash_table();
+ // example_write_show_animal();
     return 0;
 }
