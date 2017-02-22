@@ -1,12 +1,14 @@
 
+
+inline void read_animal(int pos){
+    read_file(pos);
+}
+
 inline void write_animal(animal a, ll pos ){
     write_file(a, pos);   
+   read_animal(pos);
 }
     
-inline void read_animal(string name){
-    int hash_name = get_hash(name);
-    read_file(name, hash_name);
-}
 
 inline void show_animal(animal a){
     cout << endl;

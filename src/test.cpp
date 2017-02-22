@@ -6,7 +6,7 @@
  * RAM memory.
  */
 
-void example_creating_hash_table(){
+inline void example_creating_hash_table(){
     hash_table  a = get_hash_table();  //This create the hash table from scratch
                                        //In another situation we need to load first
                                        //Just a example
@@ -25,7 +25,7 @@ void example_creating_hash_table(){
 
 }
 
-void example_loading_hash_table(){
+inline  void example_loading_hash_table(){
     hash_table a = read_hash_table();
     
 }
@@ -37,17 +37,23 @@ void example_loading_hash_table(){
  * This example, I show how to create an animal, writing in disk and 
  * Finally read that Animal in disk. 
  */
-void example_write_show_animal(){
+inline  void example_write_show_animal(){
     //animal a1;
+    char name[32] = "Tris"; 
+    char type[32]  = "Perro"; 
+    char breed[16] = "Criollo";
+    char genre = 'F';    
+    int32_t age = 30;       
+    int32_t height=5;    
+    int32_t weight=25;    
     
-    animal a1("Tris", "perro", 1, "Criollo", 30, 35, 'F');  
+    animal a1(name, type, age, breed, height, weight, genre);  
     
     /* cout << "string: " << sizeof (string) << endl;
     cout << "Animal size: " << sizeof(animal) << endl;*/
-    
-    write_animal(a1,1);
-    read_animal("Perro");
-    read_animal("Tris");
+    int pos = 1;
+    write_animal(a1,pos);
+    read_animal(pos);
   //  show(a1);
 }
 

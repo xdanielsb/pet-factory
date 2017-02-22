@@ -6,7 +6,7 @@
 #include <vector>
 
 #define NUM_DATA 1
-FILE *data;
+FILE *myfile;
 
 
 //
@@ -14,27 +14,28 @@ FILE *data;
 //
 
 
-inline void write_file(animal &a,int pos){
-    data = fopen("var/data.bin", "wb");
-    if (data != NULL) { //SUCCESS OPERATION?
-    //    cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
-        fseek(data,sizeof(animal)*pos,SEEK_SET);
-        fwrite(&a, sizeof(animal), NUM_DATA, data);
-        fclose(data);
+inline void write_file(animal a,int pos){
+    myfile = fopen("var/data.bin", "wb");
+    if (myfile != NULL) { //SUCCESS OPERATION?
+        cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
+        fseek(myfile,sizeof(animal)*pos,SEEK_SET);
+        fwrite(&a, sizeof(animal), NUM_DATA, myfile);
+        fclose(myfile);
     }else{
         cout << "Error opening the data." << endl;
     }
 }
 
-inline void read_file(string name, int pos){
-    data = fopen("var/data.bin", "rb");
-    animal a;
-    if (data != NULL) { //SUCCESS OPERATION?
-   //     cout << "read pos:  " << pos <<  " * sizeof(animal)" << endl;
-        fseek(data,sizeof(animal)*pos,SEEK_SET);
-        fread(&a,sizeof(animal),NUM_DATA,data);
+inline animal read_file(int pos){
+    myfile = fopen("var/data.bin", "rb");
+    animal a ;//= malloc(sizeof(animal));
+    if (myfile != NULL) { //SUCCESS OPERATION?
+        cout << "read pos:  " << pos <<  " * sizeof(animal)" << endl;
+        fseek(myfile,sizeof(animal)*pos,SEEK_SET);
+        fread(&a,sizeof(animal),NUM_DATA,myfile);
         cout << "Name: "<< a.name << endl;
-        fclose(data);
+        fclose(myfile);
+        return a;
     }else{ 
         cout << "Error opening the data" << endl;
     }
@@ -52,8 +53,8 @@ inline void read_file(string name, int pos){
  * Write hash table in disk
  */
 inline void write_hash_table(hash_table a){
-    data = fopen("var/hash.txt", "w");
-    if (data != NULL) { //SUCCESS OPERATION?
+    myfile = fopen("var/hash.txt", "w");
+    if (myfile != NULL) { //SUCCESS OPERATION?
         for (int i =0; i< size_hash_table; i++){
             node *aux = a[i];
             string name = to_string(i)+",";
@@ -67,11 +68,11 @@ inline void write_hash_table(hash_table a){
             cout << val << endl;
             const char * d = val.c_str();
 
-            fwrite(d, sizeof(d), NUM_DATA, data);
+            fwrite(d, sizeof(d), NUM_DATA, myfile);
             //val += "\r";
             
         }
-        fclose(data);
+        fclose(myfile);
     }else{
         cout << "Error opening the hash table." << endl;
     }

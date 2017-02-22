@@ -5,6 +5,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <chrono>       /* count the time */
+#include <sys/types.h> 
 
 using namespace std;
 /* Good reference for input output
@@ -30,23 +31,26 @@ using namespace std;
 #include "src/file.cpp" 
 #include "src/animal_controller.cpp" //Depend on file
 #include "src/controller.cpp"
-
+#include "src/test.cpp"
 
 
 
 int main(){
     auto start = chrono::high_resolution_clock::now();
-    
-    init_application();
+
+    cin.tie(NULL); //Faster input
+
+    load_data();
 
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> diff = end-start;
     cout << "\nTime initializing the application: " << diff.count() << endl ;
 
-
-
+  //  example_write_show_animal();
+    menu();
+    
  // example_loading_hash_table();
  //  example_creating_hash_table();
- // example_write_show_animal();
+ 
     return 0;
 }
