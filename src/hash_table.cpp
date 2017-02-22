@@ -12,18 +12,21 @@ inline int get_code (){
     return code;
 }
 
+inline void show_row_table(int row){
+    ll num_columns = data[row].size();
+    for(int j=0; j< num_columns; j++){
+        cout << data[row][j]  << " ";
+    }
+    cout << endl;
+}
 
 /*
  * Show the hash table, each row represents a new hash
  */
 inline  void show_hash_table(){
     for(int i=0; i< size_hash_table; i++){
-        ll num_columns = data[i].size();
         cout << i << " : " ;
-        for(int j=0; j< num_columns; j++){
-            cout << data[i][j]  << " ";
-        }
-        cout << endl;
+        show_row_table(i);
     }
 }
 

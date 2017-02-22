@@ -116,5 +116,21 @@ inline void delete_animal(){
     }
     show_hash_table();
 
-
 }
+
+/*
+ * Show animals with an specific name
+ */
+inline void show_animal_r(){
+    string name;
+    cout << "\n SHOW ANIMALS BY NAME\n";
+    
+    
+    cout << " Name of the register = " ;
+
+    cin >> name;
+    int hash = get_hash (name);
+    cout << endl <<"Names with the same hash" << endl;
+    show_row_table(hash);
+}
+

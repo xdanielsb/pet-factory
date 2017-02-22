@@ -19,12 +19,11 @@ using namespace std;
 
 //-----Dependencies
 
-
 #include "src/hash_table.cpp"              
 #include "src/animal_controller.cpp" 
-#include "src/controller_application.cpp"  //Declare animal
+#include "src/controller_application.cpp"    //Declare animal
 #include "src/test.cpp"
-#include "src/random.cpp"            //Use hash_table for show
+#include "src/random.cpp"                    //Use hash_table for show
 
 
 
@@ -44,7 +43,7 @@ void launch_application(){
     chrono::duration<double> diff = end-start;
 
     //Display timer
-    cout << "\nTime initializing the application: " << diff.count() << endl ;
+    cout << "\ninitializing the application took: " << diff.count() << endl ;
 
     
     //Display the menu
