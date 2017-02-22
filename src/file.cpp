@@ -92,11 +92,8 @@ inline hash_table read_hash_table(){
 	char *q;  
     if (myfile.is_open()) { //SUCCESS OPERATION?
         while(getline(myfile,line)){
-            
-            node * linked  = a[counter];    
-          
+            node * linked  = a[counter];     
         }
-        
         return a;
     }else{ 
         cout << "Error opening the data" << endl;

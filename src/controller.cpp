@@ -1,52 +1,26 @@
-#define NUM_DOGS 1000
-#define NRPC 20000 //Number of registers per column
+#define NUM_DOGS 1000  //Number of dogs that is going to be used in the project
+#define NRPC 20000     //Number of registers per column
 
 static ll LOC = 1;
 static vvi data(size_hash_table);
 
-//Funciones para generar numeros aleatorios
-int randInt(int max, int min){
-
-    int aleat_int = 0;
-    aleat_int= rand()%(max - min)+min;
-    return aleat_int; }
-
-double randDouble(double max, double min){
-
-    double aleat_doub=0.0;
-    aleat_doub= drand48()*(max-min)+min;
-    return aleat_doub;
-}
-
-
-
-
 /*
- *
+ * Create random int numbers 
  */
-inline  void show_registers(){
-    //for(int i=0; i< NUM_DOGS; i++){
-    for(int i=0; i< size_hash_table; i++){
-        ll num_columns = data[i].size();
-        /*for(int j=0; j< kdnum_columns; j++){
-            cout << registers[i][j]  << " ";
-        }*/
-        cout << i << " "<< num_columns << endl;
-    }
+int randInt(int max, int min){
+    return rand()%(max - min)+min; 
 }
 
-inline  int persist_register(animal a ){
-    /*ll start = hash * NRPC;
-    int num_columns = data[hash].size();
-    ll code = num_columns+ start;*/
-    ll code =LOC++;
-    write_animal(a,code);
-    return code;
+/*
+ * Create random double numbers
+ */
+double randDouble(double max, double min){
+    return drand48()*(max-min)+min;
 }
 
 
 /*
- * Function for creating random strings
+ * Function for creating random animals
  */
 inline  animal gen_random(char name[32], const int len) {
     
@@ -83,10 +57,36 @@ inline  animal gen_random(char name[32], const int len) {
 }
 
 
+
+
+/*
+ * Show the hash table, each row represents a new hash
+ */
+inline  void show_hash_table(){
+    for(int i=0; i< size_hash_table; i++){
+        ll num_columns = data[i].size();
+        for(int j=0; j< num_columns; j++){
+            cout << data[i][j]  << " ";
+        }
+        cout << i << " "<< num_columns << endl;
+    }
+}
+
+/*
+ * This function creates a location in disk and assign 
+ * writes the animal to the new location
+ */
+inline  int persist_register(animal a ){
+    ll code =LOC++;
+    write_animal(a,code);
+    return code;
+}
+
+
+
 inline  void load_data(){
     srand (time(NULL));  //Necesary when I am going to generate random numbers
-    int len = 7;
-    
+    int len = 7;         //Len of the names 
     
     for (ll i = 0; i<= NUM_DOGS; i++){
         
@@ -108,36 +108,46 @@ inline  void load_data(){
     }
 
  
-    show_registers();
+    show_hash_table();
 }
 
 inline void insert(){
-    cout << "\n INSERT REGISTER \n";
-    cout << " User we are going to ask you for some data, please ingress the data"<< endl;
 
     
-    char name[32];   //8 bytes
-    char type[32];   //8 bytes
-    char breed[16];  //8 bytes
-    char genre;    //1 bytes 
-    int32_t age;       //4 bytes
-    int32_t height;    //4 bytes
-    int32_t weight;    //4 bytes
+    //Define the necesary fields for inserting an animal
+    char name[32];   
+    char type[32];   
+    char breed[16];  
+    char genre;    
+    int32_t age;   
+    int32_t height;
+    int32_t weight;
 
-    cout << "Name="; cin >> name;
-    cout << "type="; cin >> type;
-    cout << "breed="; cin >> breed;
-    cout << "genre="; cin >> genre;
-    cout << "age="; cin >> age;
-    cout << "height="; cin >> height;
-    cout << "weight="; cin >> weight;
 
+    cout << "\n INSERT REGISTER \n";
+    cout << " User we are going to ask you for some data, please ingress the data : "<<endl;
+
+
+    cout << "\n\tName   = "; cin >> name;
+    cout << "\n\ttype   = "; cin >> type;
+    cout << "\n\tbreed  = "; cin >> breed;
+    cout << "\n Genre if it is Female write a {F} but if it is Male  write  a {M}\n"; 
+    cout << "\n\tgenre  = "; cin >> genre;
+    cout << "\n\tage    = "; cin >> age;
+    cout << "\n\theight = "; cin >> height;
+    cout << "\n\tweight = "; cin >> weight;
+
+    //Instance the animal
     animal a1(name, type, age, breed,height, weight, genre);   
+
+    //Getting the hash number of the animal
     ll hash = get_hash(a1.name);
         
-    ll code = persist_register(a1);
-    //Save random name in hash table
-    data[hash].push_back(code);
+    //Persisting the animal and getting the location in disk
+    ll location_disk = persist_register(a1);
+
+    //Save location in hash table
+    data[hash].push_back(location_disk);
     cout << "The register has been inserted succesfully" << endl;
 }
 
@@ -152,7 +162,7 @@ inline void show(){
     }
     cout << " Total number of registers is: " << total;
     cout << " User write the number of the register to see, please" << endl;
-    cout << "user-clinica$" << endl;
+    cout << "user-clinica$ " << endl;
     cout << "Number of the register = " ;
     cin >> n;
 
@@ -174,6 +184,7 @@ inline void search(){
 
 inline void menu(){
     int opcion = 2;
+    char c; 
     while(opcion != 5 ) {
         cout << "\n\tHello User, Welcome to Pet Factory" << endl;
         cout << "\n This are the options that we offer" << endl;
@@ -182,11 +193,11 @@ inline void menu(){
         cout << "3. Delete  a register " <<endl;
         cout << "4. Search for a register " <<endl;
         cout << "5. Salir " <<endl;
-
-        cout << "user-clinica$";
+        cout << "user-clinica$ ";
         cin >> opcion;
+        system("clear");
 
-        if(opcion==1){
+        if(opcion == 1){
             insert();
         }
         else if(opcion == 2){
@@ -198,6 +209,10 @@ inline void menu(){
         else if(opcion == 4){
             search();
         }
+
+        cout << "Press any key to continue with the menu ";
+        cin >> c;
+        system("clear");
         
     }
 

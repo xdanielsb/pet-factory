@@ -8,16 +8,6 @@
 #include <sys/types.h> 
 
 using namespace std;
-/* Good reference for input output
- * https://www.codingunit.com/c-tutorial-binary-file-io
- */
-
-/* Good  reference for create hash table
- * http://users.dsic.upv.es/~nprieto/clases/EDA0506/T9/Traspas9.pdf
- */
-
-
-
 
 /*This order must be followed*/
 
@@ -33,24 +23,38 @@ using namespace std;
 #include "src/controller.cpp"
 #include "src/test.cpp"
 
+void launch_application(){
 
-
-int main(){
+    //Init timer
     auto start = chrono::high_resolution_clock::now();
 
-    cin.tie(NULL); //Faster input
+    //Faster input and output
+    cin.tie(NULL); 
+   
 
-  //  load_data();
+    //Load the data
+    load_data();
 
+    //Finish timer
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> diff = end-start;
+    //Display timer
     cout << "\nTime initializing the application: " << diff.count() << endl ;
 
-    example_write_show_animal();
-  //    menu();
     
- // example_loading_hash_table();
- //  example_creating_hash_table();
- 
+    //Display the menu
+    menu();
+    
+
+    // example_write_show_animal();
+    // example_loading_hash_table();
+    // example_creating_hash_table();
+
+}
+
+int main(){
+
+    launch_application();
+    
     return 0;
 }
