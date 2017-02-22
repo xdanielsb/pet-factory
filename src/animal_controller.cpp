@@ -1,5 +1,5 @@
 
-inline void write_animal(animal a ){
+inline void write_animal(animal a, ll pos ){
     int hash_name = get_hash(a.name);
     //Here we need to use the hash table
     
@@ -12,7 +12,7 @@ inline void read_animal(string name){
 }
 
 inline void show_animal(animal a){
-
+    cout << endl;
     cout << "Name: " << a.name << endl;
     cout << "Type: " << a.type << endl;
     cout << "Age: " << a.age << endl;

@@ -15,12 +15,12 @@ using namespace std;
 #include "src/animal.cpp"
 #include "src/hash.cpp"
 #include "src/hash_table.cpp"
-#include "src/controller.cpp"
+
 
 //-----Dependencies
 #include "src/file.cpp" 
 #include "src/animal_controller.cpp" //Depend on file
-
+#include "src/controller.cpp"
 
 /* Good reference for input output
  * https://www.codingunit.com/c-tutorial-binary-file-io

@@ -1,55 +1,89 @@
-#define NUM_DOGS 10000000
+#define NUM_DOGS 10000
+#define NRPC 20000 //Number of registers per column
 
 typedef long long ll;
-typedef vector <string> vll;
-typedef vector <vll> vvll;
+typedef vector <int> vi;
+typedef vector <vi> vvi;
 /*
  *
  */
-void show_registers(vvll registers){
+void show_registers(vvi registers){
     for(int i=0; i< size_hash_table; i++){
         ll num_columns = registers[i].size();
-        for(int j=0; j< num_columns; j++){
+        /*for(int j=0; j< kdnum_columns; j++){
             cout << registers[i][j]  << " ";
-        }
-        cout << endl;
+        }*/
+        cout << i << " "<< num_columns << endl;
     }
+}
+
+int persist_register(vvi data, animal a , int hash){
+    ll start = i * NRPC;
+    int num_columns = data[hash].size();
+    ll code = num_columns+ start;
+    write(a,code);
+    return code;
 }
 
 
 /*
  * Function for creating random strings
  */
-string gen_random(char *s, const int len) {
+animal gen_random(char *s, const int len) {
     static const char alphanum[] =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "abcdefghijklmnopqrstuvwxyz";
+
+    static string types[] = {"perro", "gato", "tortuga", "mariposa", "ave", "leon"};  
+    static string breeds[] = {"Criollo", "Pura", "Semental", "Super", "Saiyajin"};  
+    static char genres[] = {'F', 'M'};    //1 bytes 
+
+    int age = rand() % 100;
+    int height = rand() % 168;    
+    int weight = rand() % 200;
+    char genre = genres[rand() % 2];
+    string breed = breeds[rand() % 5]; 
+    string type = types[rand() % 6]; 
+
+    //Random string
     for (int i = 0; i < len; ++i) {
         s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
     }
-    s[len] = 0;
-    string r(s);
-    return s;
+    s[len] = 0; //Finish string
+    string name(s); //turning into string
+    
+    animal a1(name, type, age, breed,height, weight, genre);  
+    
+    //Take care the order of importations that you do in your project
+    //show_animal(a1);
+    return a1;
 }
 
 
 void init_application(){
     srand (time(NULL));  //Necesary when I am going to generate random numbers
     int len = 7;
-    vvll data(size_hash_table);
-    for (int i = 0; i<= NUM_DOGS; i++){
+    
+    vvi data(size_hash_table);
+    for (ll i = 0; i<= NUM_DOGS; i++){
+        
         char *s = new char[len];
         //Get random name
-        string name =  gen_random(s, len);
-        ll hash = get_hash(name);
-
+        animal aux =  gen_random(s, len);
+        ll hash = get_hash(aux.name);
+        
+        ll code = persist_register(data, aux,  hash);
         //Save random name in hash table
         
         //Save in disk the name
-        data[hash].push_back(name);
+        data[hash].push_back(aux);
        
         //Show the generated register
-        //cout <<  name << " " << hash;
+      //  cout << i << " " << name << " " << hash <<endl;
+
+        delete s;
     }
-    show_registers(data);
+
+ 
+ //   show_registers(data);
 }
