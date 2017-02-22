@@ -1,9 +1,6 @@
 
 inline void write_animal(animal a, ll pos ){
-    int hash_name = get_hash(a.name);
-    //Here we need to use the hash table
-    
-    write_file(a, hash_name);   
+    write_file(a, pos);   
 }
     
 inline void read_animal(string name){

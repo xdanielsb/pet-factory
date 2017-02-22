@@ -1,9 +1,7 @@
 #define NUM_DOGS 10000
 #define NRPC 20000 //Number of registers per column
 
-typedef long long ll;
-typedef vector <int> vi;
-typedef vector <vi> vvi;
+static ll LOC = 1;
 /*
  *
  */
@@ -18,10 +16,11 @@ void show_registers(vvi registers){
 }
 
 int persist_register(vvi data, animal a , int hash){
-    ll start = i * NRPC;
+    /*ll start = hash * NRPC;
     int num_columns = data[hash].size();
-    ll code = num_columns+ start;
-    write(a,code);
+    ll code = num_columns+ start;*/
+    ll code =LOC;
+    write_animal(a,LOC++);
     return code;
 }
 
@@ -76,7 +75,7 @@ void init_application(){
         //Save random name in hash table
         
         //Save in disk the name
-        data[hash].push_back(aux);
+        data[hash].push_back(code);
        
         //Show the generated register
       //  cout << i << " " << name << " " << hash <<endl;
@@ -85,5 +84,5 @@ void init_application(){
     }
 
  
- //   show_registers(data);
+    show_registers(data);
 }

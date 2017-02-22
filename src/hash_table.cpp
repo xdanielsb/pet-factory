@@ -33,12 +33,8 @@ inline void insert_linked_list(node * &linked, int p){
     n->pos = p;
     n->next = nullptr;
     if (linked == nullptr){ //Void list
-      //  cout << "The list is void " << endl;
-      //  cout << "New head " << n->pos << endl;
         linked = n;
     }else {  //Case of collitions
-      //  cout << "The list is not void " << endl;
-      //  cout << "Inserting in the list " << n->pos << endl;
         node * aux = linked;
         while (aux->next != nullptr){
             aux = aux->next;

@@ -1,4 +1,7 @@
-
+#include <vector>
+typedef long long ll;
+typedef vector <int> vi;
+typedef vector <vi> vvi;
 
 /*it's happening a weird thing*/
 struct animal{
