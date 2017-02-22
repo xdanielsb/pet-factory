@@ -15,7 +15,7 @@ FILE *myfile;
 
 
 inline void write_file(animal a,int pos){
-    myfile = fopen("var/data.bin", "wb");
+    myfile = fopen("var/data.bin", "ab+");
     if (myfile != NULL) { //SUCCESS OPERATION?
         cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);

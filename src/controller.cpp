@@ -1,4 +1,4 @@
-#define NUM_DOGS 3
+#define NUM_DOGS 1000
 #define NRPC 20000 //Number of registers per column
 
 static ll LOC = 1;

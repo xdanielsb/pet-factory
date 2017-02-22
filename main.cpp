@@ -40,14 +40,14 @@ int main(){
 
     cin.tie(NULL); //Faster input
 
-   // load_data();
+    load_data();
 
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> diff = end-start;
     cout << "\nTime initializing the application: " << diff.count() << endl ;
 
-    example_write_show_animal();
- //   menu();
+  //  example_write_show_animal();
+      menu();
     
  // example_loading_hash_table();
  //  example_creating_hash_table();
