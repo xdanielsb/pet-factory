@@ -8,8 +8,7 @@ inline void show(){
 }
 
 inline void delete_r(){
-
-
+    delete_animal();
 }
 
 inline void search(){
@@ -48,7 +47,7 @@ inline void menu(){
             search();
         }
 
-        cout << "Press any letter sto continue with the menu ";
+        cout << "Press any letter to continue with the menu ";
         cin >> c;
         system("clear");
         

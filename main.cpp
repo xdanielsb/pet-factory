@@ -60,6 +60,5 @@ void launch_application(){
 int main(){
 
     launch_application();
-    
     return 0;
 }

@@ -82,9 +82,39 @@ inline void show_animal(){
     cout << " Total number of registers is: " << total;
     cout << " User write the number of the register to see, please" << endl;
     cout << " Number of the register = " ;
+    
     cin >> number_register;
 
-    read_animal(number_register);
+    if (exist(number_register)){        //First Check in RAM
+        read_animal(number_register);   //SECOND ACCESS TO DISK
+    }else{
+        cout << "\nUser that number is not register in the database\n";
+    }
+
+    
 }
     
 
+/*
+ * Delete animal
+ */
+inline void delete_animal(){
+
+    show_hash_table();
+    int number_register;
+    cout << "\n DELETE REGISTER \n";
+    
+    
+    cout << " Number of the register = " ;
+    
+    cin >> number_register;
+
+    if (exist(number_register)){      //Exist?  
+        delete_item(number_register); //First delete from memory
+    }else{
+        cout << "\nUser that number is not registered in the database\n";
+    }
+    show_hash_table();
+
+
+}
