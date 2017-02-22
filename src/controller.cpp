@@ -210,7 +210,7 @@ inline void menu(){
             search();
         }
 
-        cout << "Press any key to continue with the menu ";
+        cout << "Press any letter sto continue with the menu ";
         cin >> c;
         system("clear");
         
