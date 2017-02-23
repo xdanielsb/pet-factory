@@ -36,7 +36,7 @@ inline  animal create_random_animal(char name[32], const int len) {
     string breed = breeds[rand() % 5]; 
     string type = types[rand() % 6]; 
 
-    //Random string
+    //Random name 
     for (int i = 0; i < len; ++i) {
         name[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
     }

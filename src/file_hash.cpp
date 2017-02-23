@@ -3,13 +3,13 @@
 #include <string>
 #include <stdlib.h> //exit();
 
-
+//Good reference http://courses.cs.vt.edu/~cs2604/fall00/binio.html#seekg
 
 inline void write_file_hash(vvi data){
     ofstream outFile;
-    outFile.open("new_hash_table.txt");
+    outFile.open("var/new_hash_table.txt");
     //Check for error
-    if(inFile.fail()){
+    if(outFile.fail()){
         cerr << "Error opening file" << endl;
         exit(1);
     }
@@ -27,7 +27,7 @@ inline void write_file_hash(vvi data){
 
 inline vvi read_file_hash(){
     ifstream  inFile;
-    inFile.open("new_hash_table.txt");
+    inFile.open("var/new_hash_table.txt");
     vvi re;
     //Check for error
     if(inFile.fail()){

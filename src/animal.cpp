@@ -43,7 +43,6 @@ inline string to_string(animal a){
     data += "Type: " + bb +"\n";    
     data += "Breed: " + cc +"\n";
     return data;
-
 }
 
 inline void show_animal(animal a){
@@ -55,7 +54,6 @@ inline void show_animal(animal a){
     cout << "Height: " << a.height << endl;
     cout << "Weight: " << a.weight << endl;
     cout << "Genre: " << a.genre << endl;
-
 }
 
 

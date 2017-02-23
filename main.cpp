@@ -36,7 +36,12 @@ void launch_application(){
     cin.tie(NULL); 
    
     //Create random data
-    create_random_data();
+    bool initilize_from_scratch = false;
+    if (initilize_from_scratch){
+        create_random_data();
+    }else{
+        data = read_file_hash(); 
+    }
 
     //Finish timer
     auto end = chrono::high_resolution_clock::now();
@@ -47,19 +52,8 @@ void launch_application(){
 
     
     //Display the menu
-  //  menu();
+    menu();
 
-    write_hash_table();
-    vvi ne = read_file_hash();
-    for (int i = 0; i<ne.size(); i++){
-        int s = ne[i].size();
-        cout << i << " : ";
-        for (int j = 0; j  < s; j++){
-            cout << ne[i][j] << " ";
-        }
-        cout << endl;
-    }
-        
 
     // example_write_show_animal();
     // example_loading_hash_table();

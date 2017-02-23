@@ -63,3 +63,19 @@ inline bool exist(int number){
 inline void write_hash_table(){
     write_file_hash(data);
 }
+
+/*
+ * Show custom hash-generated table. 
+ */
+inline void show_custom_hash(vvi ne){
+
+    for (int i = 0; i<ne.size(); i++){
+        int s = ne[i].size();
+        cout << i << " : ";
+        for (int j = 0; j  < s; j++){
+            cout << ne[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+

@@ -33,6 +33,8 @@ inline void menu(){
         
     }
 
+    //Here we write the hash table in disk //Because the execution ends
+    write_hash_table();
 
 }
 
