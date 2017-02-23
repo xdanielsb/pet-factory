@@ -14,14 +14,14 @@ using namespace std;
 //-----No dependencies 
 #include "src/animal.cpp"
 #include "src/hash.cpp"
-
+#include "src/file_hash.cpp"  
 
 
 //-----Dependencies
+#include "src/hash_table.cpp"
 
-#include "src/hash_table.cpp"              
 #include "src/animal_controller.cpp" 
-#include "src/controller_application.cpp"    //Declare animal
+#include "src/application_controller.cpp"    //Declare animal
 #include "src/test.cpp"
 #include "src/random.cpp"                    //Use hash_table for show
 
@@ -47,8 +47,19 @@ void launch_application(){
 
     
     //Display the menu
-    menu();
-    
+  //  menu();
+
+    write_hash_table();
+    vvi ne = read_file_hash();
+    for (int i = 0; i<ne.size(); i++){
+        int s = ne[i].size();
+        cout << i << " : ";
+        for (int j = 0; j  < s; j++){
+            cout << ne[i][j] << " ";
+        }
+        cout << endl;
+    }
+        
 
     // example_write_show_animal();
     // example_loading_hash_table();

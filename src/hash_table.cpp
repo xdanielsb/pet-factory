@@ -59,3 +59,7 @@ inline bool exist(int number){
     }
     return false;
 }
+
+inline void write_hash_table(){
+    write_file_hash(data);
+}
