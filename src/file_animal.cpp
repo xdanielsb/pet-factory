@@ -37,6 +37,30 @@ inline animal read_file(int pos){
 
 }
 
+inline void write_file2(animal a,int pos){
+    myfile = fopen("var/data2.bin", "w+");
+    if (myfile != NULL) { //SUCCESS OPERATION?
+        cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
+        fseek(myfile,sizeof(animal)*pos,SEEK_SET);
+        fwrite(&a, sizeof(animal), NUM_DATA, myfile);
+        fclose(myfile);
+    }else{
+        cout << "Error opening the data." << endl;
+    }
+}
+
+inline void rewrite_data_table(vvi data){
+    int pos;
+    animal a; 
+    for(int i=0; i< size_hash_table; i++){
+        ll num_columns = data[i].size();
+        for(int j=0; j< num_columns; j++){
+            pos =data[i][j] ;
+            a = read_file(pos);
+            write_file2(a,pos);
+        }
+    }
+}
 
 
 

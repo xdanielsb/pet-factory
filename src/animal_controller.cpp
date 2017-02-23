@@ -3,7 +3,7 @@
 /*
  * Refers to read animal from disk
  */
-inline void read_animal(int pos){
+inline animal read_animal(int pos){
     animal a = read_file(pos);
 
     //Open the file
@@ -12,6 +12,7 @@ inline void read_animal(int pos){
     //system(cadena.c_str());
     //system("gedit hist.clinic");
     show_animal(a);
+    return a;
 }
 /*
  * Write animla in disk

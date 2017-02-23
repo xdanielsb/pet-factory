@@ -34,6 +34,11 @@ inline  void show_hash_table(){
  * Delete item in the hash table by number
  */
 inline void delete_item(int number){
+    /*
+     * Logic for delete
+     *  Find the position and interchange it with the las position
+     *  Delete the item the item
+     */
     for (int i=0; i< size_hash_table; i++){
         ll num_columns = data[i].size();
         for(int j=0; j< num_columns; j++){
