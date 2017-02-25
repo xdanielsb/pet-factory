@@ -32,6 +32,10 @@ struct animal{
         age = _age;
 
     }
+
+    bool operator == (animal a) const {
+        return genre == a.genre;
+    }
 };
 
 inline string to_string(animal a){
