@@ -131,10 +131,9 @@ inline void delete_animal(){
         //Get the animal in the greatest location: The end of the file
         animal aux = read_animal(greatest);
         //Write the last animal in the location that was  erase in hash table
-        write_animal(aux,number_register);
+        delete_file(aux,number_register);
 
 
-        //Now truncate the file.
         
         
     //    show_hash_table();
