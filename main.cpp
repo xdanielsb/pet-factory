@@ -19,10 +19,9 @@ using namespace std;
 
 //-----Dependencies
 #include "src/hash_table.cpp"
-
 #include "src/animal_controller.cpp" 
 #include "src/application_controller.cpp"    //Declare animal
-#include "src/test.cpp"
+#include "src/test.cpp"                      //Test of application functionalities
 #include "src/random.cpp"                    //Use hash_table for show
 
 

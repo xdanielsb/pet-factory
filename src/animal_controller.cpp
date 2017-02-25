@@ -127,11 +127,23 @@ inline void show_animal_r(){
     cout << "\n SHOW ANIMALS BY NAME\n";
     
     
-    cout << " Name of the register = " ;
-
-    cin >> name;
+    cout << " Name of the register = " ; cin >> name;
     int hash = get_hash (name);
-    cout << endl <<"Names with the same hash" << endl;
+    cout << " The hash of " << name << " is: " << hash << endl;
+
+    vi values = get_locations(hash);
+    cout << endl <<"Number of positions in disk with the same hash: " << values.size() << endl;
+
     show_row_table(hash);
+
+    cout << endl << "Animals that has the same hash :" << endl;
+
+    for (int i= 0; i< values.size(); i++){
+        cout << "#" << i << endl;
+        read_animal(values[i]);
+        cout << endl;
+    }
+    cout << endl;
+    
 }
 

@@ -1,4 +1,7 @@
-
+/*
+ * Menu call animal controller because this one has 
+ * the funcitionalites of animal'structure
+ */
 inline void menu(){
     int opcion = 2;
     char c; 

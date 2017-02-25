@@ -84,3 +84,17 @@ inline void show_custom_hash(vvi ne){
     }
 }
 
+/*
+ * Get locations in disk with the same hash
+ * hash --> point out the hash
+ */
+
+inline vi get_locations(int hash){
+    ll num_columns = data[hash].size();
+    vi pos(num_columns);
+    for(int j=0; j< num_columns; j++){
+       pos[j] = data[hash][j];
+    }
+    return pos;
+}
+
