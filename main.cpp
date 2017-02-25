@@ -33,7 +33,7 @@ inline void launch_application(){
     cin.tie(NULL); 
    
     //Create random data
-    bool initilize_from_scratch = false;
+    bool initilize_from_scratch = true;
     if (initilize_from_scratch){
         cout << "Number of registers to create randomly : "<< NUM_DOGS << endl;
         cout << "The Data is being created, please wait a moment ..." << endl;

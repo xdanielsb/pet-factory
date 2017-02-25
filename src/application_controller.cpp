@@ -15,7 +15,7 @@ inline void menu(){
         cout << "\t5. Salir " <<endl;
         cout << "user-clinica> ";
         cin >> opcion;
-        system("clear");
+     //   system("clear");
 
         if(opcion == 1){
             insert_animal();
@@ -30,15 +30,14 @@ inline void menu(){
             show_animal_r();
         }
 
-        cout << "Press any letter to continue with the menu ";
+     /*   cout << "Press any letter to continue with the menu ";
         cin >> c;
-        system("clear");
+        system("clear");*/
         
     }
 
     //Here we write the hash table in disk //Because the execution ends
     write_hash_table();
-    rewrite_data_table(data);
 }
 
 

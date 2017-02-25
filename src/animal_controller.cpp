@@ -11,7 +11,7 @@ inline animal read_animal(int pos){
 
     //system(cadena.c_str());
     //system("gedit hist.clinic");
-    show_animal(a);
+  //  show_animal(a);
     return a;
 }
 /*
@@ -24,6 +24,13 @@ inline int write_animal(animal a){
   return pos;
 }
 
+/*
+ * Write animal in disk but in custom location
+ */
+inline int write_animal(animal a, int pos){
+    write_file(a, pos);   
+    return pos;
+}
 
 /*
  * Operation for the user for create an animal from memory to disk
@@ -87,7 +94,8 @@ inline void show_animal(){
     cin >> number_register;
 
     if (exist(number_register)){        //First Check in RAM
-        read_animal(number_register);   //SECOND ACCESS TO DISK
+        animal aux = read_animal(number_register);   //SECOND ACCESS TO DISK
+        show_animal(aux);
     }else{
         cout << "\nUser that number is not register in the database\n";
     }
@@ -101,7 +109,7 @@ inline void show_animal(){
  */
 inline void delete_animal(){
 
-    show_hash_table();
+    //show_hash_table();
     int number_register;
     cout << "\n DELETE REGISTER \n";
     
@@ -109,15 +117,31 @@ inline void delete_animal(){
     cout << " Number of the register = " ;
     
     cin >> number_register;
-
+  
     if (exist(number_register)){      //Exist?  
+       // show_hash_table();
         delete_item(number_register); //First delete from memory
+        
         //Now interchange move the last position to this location
         //It is important remark that number_register is the location in memory
+        int greatest =  change_greatest_location(number_register);
+        cout << endl;
+
+        //Change this locations 
+        //Get the animal in the greatest location: The end of the file
+        animal aux = read_animal(greatest);
+        //Write the last animal in the location that was  erase in hash table
+        write_animal(aux,number_register);
+
+
+        //Now truncate the file.
+        
+        
+    //    show_hash_table();
     }else{
         cout << "\nUser that number is not registered in the database\n";
     }
-    show_hash_table();
+    
 
 }
 

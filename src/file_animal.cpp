@@ -9,12 +9,17 @@
 
 FILE *myfile;
 
+int indicator;
 
 inline void write_file(animal a,int pos){
-    myfile = fopen("var/data.bin", "ab+");
+    myfile = fopen("var/data.bin", "rb+");
     if (myfile != NULL) { //SUCCESS OPERATION?
         cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
+
+        indicator = ftell (myfile);
+        cout <<  "\tposition indicator : " << (indicator/sizeof(animal)) << endl;
+
         fwrite(&a, sizeof(animal), NUM_DATA, myfile);
         fclose(myfile);
     }else{
@@ -28,6 +33,10 @@ inline animal read_file(int pos){
     if (myfile != NULL) { //SUCCESS OPERATION?
         cout << "read pos:  " << pos <<  " * sizeof(animal)" << endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
+
+        indicator = ftell (myfile);
+        cout <<  "\tposition indicator : " << (indicator/sizeof(animal)) << endl;
+
         fread(&a,sizeof(animal),NUM_DATA,myfile);
         fclose(myfile);
         return a;
@@ -37,11 +46,14 @@ inline animal read_file(int pos){
 
 }
 
+
+/*
 inline void write_file2(animal a,int pos){
     myfile = fopen("var/data2.bin", "w+");
     if (myfile != NULL) { //SUCCESS OPERATION?
         cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
+
         fwrite(&a, sizeof(animal), NUM_DATA, myfile);
         fclose(myfile);
     }else{
@@ -60,7 +72,7 @@ inline void rewrite_data_table(vvi data){
             write_file2(a,pos);
         }
     }
-}
+}*/
 
 
 

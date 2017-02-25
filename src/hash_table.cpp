@@ -104,6 +104,7 @@ inline vi get_locations(int hash){
  */
 
 inline int change_greatest_location(int new_location){
+    
     int aux =-1;
     int posx,posy;
     for (int i = 0; i<data.size(); i++){
@@ -120,6 +121,7 @@ inline int change_greatest_location(int new_location){
     cout << "Changing  location from " << aux << " to " << new_location << endl;
     data[posx][posy]=new_location;
     
+    return aux;
 }
 
 
