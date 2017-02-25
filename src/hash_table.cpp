@@ -98,3 +98,29 @@ inline vi get_locations(int hash){
     return pos;
 }
 
+
+/*
+ * Get the last position and interchange with the new location
+ */
+
+inline int change_greatest_location(int new_location){
+    int aux =-1;
+    int posx,posy;
+    for (int i = 0; i<data.size(); i++){
+        int cols = data[i].size();
+        for (int j=0; j< cols; j++){
+            if(data[i][j] > aux){
+                aux = data[i][j];
+                posx =i;
+                posy =j;
+            }
+        }
+    }
+    cout << "The greatest location in disk is : " << aux << endl;
+    cout << "Changing  location from " << aux << " to " << new_location << endl;
+    data[posx][posy]=new_location;
+    
+}
+
+
+

@@ -112,6 +112,8 @@ inline void delete_animal(){
 
     if (exist(number_register)){      //Exist?  
         delete_item(number_register); //First delete from memory
+        //Now interchange move the last position to this location
+        //It is important remark that number_register is the location in memory
     }else{
         cout << "\nUser that number is not registered in the database\n";
     }

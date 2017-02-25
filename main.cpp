@@ -26,31 +26,28 @@ using namespace std;
 
 
 
-void launch_application(){
+inline void launch_application(){
 
-    //Init timer
+    
     auto start = chrono::high_resolution_clock::now();
-
-    //Faster input and output
     cin.tie(NULL); 
    
     //Create random data
     bool initilize_from_scratch = false;
     if (initilize_from_scratch){
-        create_random_data();
+        cout << "Number of registers to create randomly : "<< NUM_DOGS << endl;
+        cout << "The Data is being created, please wait a moment ..." << endl;
+        create_random_data();  //Random class
     }else{
-        data = read_file_hash(); 
+        cout << "The data has  been read from disk" <<endl;
+        data = read_file_hash(); //hash_table
     }
 
-    //Finish timer
+    
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> diff = end-start;
-
-    //Display timer
     cout << "\ninitializing the application took: " << diff.count() << endl ;
 
-    
-    //Display the menu
     menu();
 
 
