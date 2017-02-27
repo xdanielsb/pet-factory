@@ -18,11 +18,11 @@ inline void write_file(animal a,int pos){
     //The file must exist
     myfile = fopen("var/data.bin", "rb+");
     if (myfile != NULL) { //SUCCESS OPERATION?
-        cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
+        //cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
 
         indicator = ftell (myfile);
-        cout <<  "\tposition indicator : " << (indicator/sizeof(animal)) << endl;
+        //cout <<  "\tposition indicator : " << (indicator/sizeof(animal)) << endl;
 
         fwrite(&a, sizeof(animal), NUM_DATA, myfile);
         fclose(myfile);
@@ -35,11 +35,11 @@ inline animal read_file(int pos){
     myfile = fopen("var/data.bin", "rb");
     animal a ;//= malloc(sizeof(animal));
     if (myfile != NULL) { //SUCCESS OPERATION?
-        cout << "read pos:  " << pos <<  " * sizeof(animal)" << endl;
+    //    cout << "read pos:  " << pos <<  " * sizeof(animal)" << endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
 
         indicator = ftell (myfile);
-        cout <<  "\tposition indicator : " << (indicator/sizeof(animal)) << endl;
+   //      cout <<  "\tposition indicator : " << (indicator/sizeof(animal)) << endl;
 
         fread(&a,sizeof(animal),NUM_DATA,myfile);
         fclose(myfile);

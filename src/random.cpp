@@ -1,4 +1,4 @@
-#define NUM_DOGS 1000  //Number of dogs that is going to be used in the project
+#define NUM_DOGS 1000000  //Number of dogs that is going to be used in the project
 
 /*
  * Create random int numbers 
@@ -67,6 +67,6 @@ inline  void create_random_data(){
     }
 
  
-    show_hash_table();
+    //show_hash_table();
 }
 

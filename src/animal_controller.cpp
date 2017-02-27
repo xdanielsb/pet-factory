@@ -87,13 +87,13 @@ inline void show_animal(){
     for(int i=0; i< size_hash_table; i++){
         total += data[i].size();
     }
-    cout << " Total number of registers is: " << total;
+    cout << " Total number of registers is: " << (total-1);
     cout << " User write the number of the register to see, please" << endl;
     cout << " Number of the register = " ;
     
     cin >> number_register;
 
-    if (exist(number_register)){        //First Check in RAM
+    if (exist(number_register) && number_register <= (total-1)){        //First Check in RAM
         animal aux = read_animal(number_register);   //SECOND ACCESS TO DISK
         show_animal(aux);
     }else{
@@ -164,9 +164,17 @@ inline void show_animal_r(){
     cout << endl << "Animals that has the same hash :" << endl;
 
     for (int i= 0; i< values.size(); i++){
-        cout << "#" << i << endl;
-        read_animal(values[i]);
-        cout << endl;
+        
+        animal aux = read_animal(values[i]);
+        string name_a(aux.name);
+        //This line transform to lower case the name
+        transform(name_a.begin(), name_a.end(), name_a.begin(), ::tolower);
+        transform(name.begin(), name.end(), name.begin(), ::tolower);
+        if (name.compare(name_a) == 0){
+            cout << "#" << i << endl;
+            show_animal(aux);
+            cout << endl;
+        }
     }
     cout << endl;
     
