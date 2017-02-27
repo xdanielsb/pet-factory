@@ -170,6 +170,8 @@ inline void show_animal_r(){
         //This line transform to lower case the name
         transform(name_a.begin(), name_a.end(), name_a.begin(), ::tolower);
         transform(name.begin(), name.end(), name.begin(), ::tolower);
+
+
         if (name.compare(name_a) == 0){
             cout << "#" << i << endl;
             show_animal(aux);

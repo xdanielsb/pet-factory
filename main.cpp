@@ -33,7 +33,7 @@ inline void launch_application(){
     cin.tie(NULL); 
    
     //Create random data
-    bool initilize_from_scratch = true;
+    bool initilize_from_scratch = false;
     if (initilize_from_scratch){
         cout << "Number of registers to create randomly : "<< NUM_DOGS << endl;
         cout << "The Data is being created, please wait a moment ..." << endl;
@@ -41,6 +41,12 @@ inline void launch_application(){
     }else{
         cout << "The data has  been read from disk" <<endl;
         data = read_file_hash(); //hash_table
+        ll total = 0;
+        for(int i=0; i< size_hash_table; i++){
+            total += data[i].size();
+        }
+        LOC = total; //re pos end of the file for insertion
+        cout << "The number or registers that were readen from disk were: " << (total -1)<< endl;
     }
 
     
