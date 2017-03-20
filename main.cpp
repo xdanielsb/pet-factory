@@ -26,14 +26,13 @@ using namespace std;
 
 
 
-inline void launch_application(){
+inline void launch_application(bool initilize_from_scratch = false){
 
     
     auto start = chrono::high_resolution_clock::now();
     cin.tie(NULL); 
    
     //Create random data
-    bool initilize_from_scratch = false;
     if (initilize_from_scratch){
         cout << "Number of registers to create randomly : "<< NUM_DOGS << endl;
         cout << "The Data is being created, please wait a moment ..." << endl;
@@ -63,8 +62,17 @@ inline void launch_application(){
 
 }
 
-int main(){
-
-    launch_application();
+int main(int argc, char* argv[]){
+    
+    if(argc  == 1){
+        printf("Hey user, you need te enter args\n");
+        printf("Enter \"load\" if your desire is create 10 million of registers \n");
+        printf("Enter \"not-load\" if you don't want to creat the files from scratch \n");
+        
+    }else{
+        string opt1 = argv[1];
+        
+        launch_application(opt1 == "load");
+    }
     return 0;
 }

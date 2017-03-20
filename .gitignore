@@ -36,4 +36,5 @@
 *.txt
 
 #Folders
-var/*
+*.bin
+*.txt
