@@ -1,10 +1,11 @@
 /*
- * Menu call animal controller because this one has 
+ * Menu call animal controller because this one has
  * the funcitionalites of animal'structure
  */
 inline void menu(){
     int opcion = 2;
-    char c; 
+    char c;
+
     while(opcion != 5 ) {
         cout << "\n\tHello User, Welcome to Pet Factory" << endl;
         cout << "\n\t\t This are the options that we offer" << endl;
@@ -33,7 +34,7 @@ inline void menu(){
      /*   cout << "Press any letter to continue with the menu ";
         cin >> c;
         system("clear");*/
-        
+
     }
 
     //Here we write the hash table in disk //Because the execution ends
@@ -41,3 +42,21 @@ inline void menu(){
 }
 
 
+inline void menu_op(int op){
+    int opcion = 2;
+    char c;
+
+        system("'se realizo una operacion. \n' >> serverDogs.log ");
+        if (opcion == 1){
+            insert_animal();
+        }
+        else if(opcion == 2){
+            show_animal();
+        }
+        else if(opcion == 3){
+            delete_animal();
+        }
+        else if(opcion == 4){
+            show_animal_r();
+        }
+}
