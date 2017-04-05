@@ -68,6 +68,8 @@ int main(int argc, char* argv[]){
         printf("Hey user, you need te enter args\n");
         printf("Enter \"load\" if your desire is create 10 million of registers \n");
         printf("Enter \"not-load\" if you don't want to creat the files from scratch \n");
+        printf("\t\tExample ./a.out load");
+        printf("\t\tExample ./a.out not-load");
         
     }else{
         string opt1 = argv[1];
