@@ -28,6 +28,39 @@ void main_menu(){
     cout << "user-clinica> ";
 }
 
+void menu(int opt){
+    if (opt == 1){
+           //Define the necesary fields for inserting an animal
+        char name[32];   
+        char type[32];   
+        char breed[16];  
+        char genre;    
+        int32_t age;   
+        int32_t height;
+        int32_t weight;
+
+
+        cout << "\n INSERT REGISTER \n";
+        cout << " User we are going to ask you for some data, please ingress the data : "<<endl;
+
+
+        cout << "\n\tName   = "; cin >> name;
+        cout << "\n\ttype   = "; cin >> type;
+        cout << "\n\tbreed  = "; cin >> breed;
+        cout << "\n Genre if it is Female write a {F} but if it is Male  write  a {M}\n"; 
+        cout << "\n\tgenre  = "; cin >> genre;
+        cout << "\n\tage    = "; cin >> age;
+        cout << "\n\theight = "; cin >> height;
+        cout << "\n\tweight = "; cin >> weight;
+
+        //Instance the animal
+        animal a1(name, type, age, breed,height, weight, genre);   
+
+    }
+}
+
+
+
 void create_client(){
     int clientfd, r;
     struct sockaddr_in client;

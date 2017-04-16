@@ -15,7 +15,6 @@ using namespace std;
 
 
 
-/*This order must be followed*/
 
 //-----No dependencies
 #include "src/animal.cpp"
@@ -25,7 +24,7 @@ using namespace std;
 
 //-----Dependencies
 #include "src/hash_table.cpp"
-#include "src/animal_controller.cpp"
+#include "src/animal_controller_client.cpp"
 #include "src/application_controller.cpp"    //Declare animal
 #include "src/test.cpp"                      //Test of application functionalities
 #include "src/random.cpp"                    //Use hash_table for show
@@ -33,18 +32,23 @@ using namespace std;
 
 
 void check_user_option_main_menu(char request[16]){
+    //Insert a pet
     if(request[0] = '1'){
-        menu_op(1);
+        options_main_menu(1);
     }
+    //Show a pet
     else if(request[0] = '2'){
-        menu_op(2);
+        options_main_menu(2);
     }
+    //Delete a pet
     else if(request[0] = '3'){
-        menu_op(3);
+        options_main_menu(3);
     }
+    //Search for a register
     else if(request[0] = '4'){
-        menu_op(4);
+        options_main_menu(4);
     }
+    //Exit 5 option not yet
 }
 
 void * function (void *ap){
@@ -64,9 +68,7 @@ void * function (void *ap){
 
 
 
-
-int main(){
-
+void create_server(){
 	int server_code = socket(AF_INET, SOCK_STREAM, 0 );
 	int size = sizeof(struct sockaddr);
 	char buffer[16];
@@ -117,7 +119,9 @@ int main(){
 
 	close(server_code);
 
+}
 
-
+int main(){
+    create_server();
 	return 0;
 }

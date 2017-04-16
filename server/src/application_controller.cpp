@@ -41,22 +41,24 @@ inline void menu(){
     write_hash_table();
 }
 
-
-inline void menu_op(int op){
+/*
+ *  This menu is called in architecture client server
+ */
+inline void options_main_menu(int op){
     int opcion = 2;
     char c;
-
-        system("'se realizo una operacion. \n' >> serverDogs.log ");
-        if (opcion == 1){
-            insert_animal();
-        }
-        else if(opcion == 2){
-            show_animal();
-        }
-        else if(opcion == 3){
-            delete_animal();
-        }
-        else if(opcion == 4){
-            show_animal_r();
-        }
+    system("'Se realizo una operacion \n' >> serverDogs.log ");
+    if (opcion == 1){
+        //Need to receive an animal
+        insert_animal();
+    }
+    else if(opcion == 2){
+        show_animal();
+    }
+    else if(opcion == 3){
+        delete_animal();
+    }
+    else if(opcion == 4){
+        show_animal_r();
+    }
 }
