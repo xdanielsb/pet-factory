@@ -9,12 +9,19 @@
 #include <iostream>
 #include <unistd.h>
 
+
 #define PORT 3535  /* This need to be  the same port  of the server part */
 #define LOOPBACK "127.0.0.1"
 #define ERROR -1
 #define ONLY 0 //When there is just one  protocol that supports the socket
 
 using namespace std;
+
+#include "animal.cpp"
+
+
+int clientfd, r;
+struct sockaddr_in client;
 
 
 void main_menu(){
@@ -28,8 +35,9 @@ void main_menu(){
     cout << "user-clinica> ";
 }
 
-void menu(int opt){
-    if (opt == 1){
+void menu(string opt){
+    cout << "Option of the user: " <<opt[1] << endl;
+    if (opt[0] == '1'){
            //Define the necesary fields for inserting an animal
         char name[32];   
         char type[32];   
@@ -39,22 +47,30 @@ void menu(int opt){
         int32_t height;
         int32_t weight;
 
-
         cout << "\n INSERT REGISTER \n";
         cout << " User we are going to ask you for some data, please ingress the data : "<<endl;
-
-
         cout << "\n\tName   = "; cin >> name;
         cout << "\n\ttype   = "; cin >> type;
         cout << "\n\tbreed  = "; cin >> breed;
-        cout << "\n Genre if it is Female write a {F} but if it is Male  write  a {M}\n"; 
+        cout << "\n\tGenre if it is Female write a {F} but if it is Male  write  a {M}\n"; 
         cout << "\n\tgenre  = "; cin >> genre;
         cout << "\n\tage    = "; cin >> age;
         cout << "\n\theight = "; cin >> height;
         cout << "\n\tweight = "; cin >> weight;
 
+
         //Instance the animal
         animal a1(name, type, age, breed,height, weight, genre);   
+
+        //animal a1("Zeus", "Lion", 23, "Warrior", 12, 34, 'M');
+        
+        r = send(clientfd, &a1, sizeof(a1), 0);
+        if (r != sizeof(a1)){
+            //Re send;
+            cout << "The message have not been sent completely. \n";
+        }else{
+            cout << "The animal has been sent. \n";
+        }
 
     }
 }
@@ -62,8 +78,6 @@ void menu(int opt){
 
 
 void create_client(){
-    int clientfd, r;
-    struct sockaddr_in client;
 
     clientfd = socket(AF_INET, SOCK_STREAM, ONLY);
     if(clientfd == ERROR) {
@@ -95,6 +109,7 @@ void create_client(){
         //Option tha the user
         string opcion;
         cin >> opcion;
+
         for (int i= 0; i<opcion.size(); i++)
             buffer.push_back(opcion[i]);
 
@@ -103,6 +118,9 @@ void create_client(){
             //Re send;
             cout << "The message have not been sent completely. \n";
         }
+
+        //Now after request is sent called another menu
+        menu(opcion);
     }
     close(clientfd);
 }

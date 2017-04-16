@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
+using namespace std;
+
 typedef long long ll;
-typedef vector <int> vi;
-typedef vector <vi> vvi;
+typedef vector < int > vi;
+typedef vector < vi > vvi;
 
 /*it's happening a weird thing*/
 struct animal{
@@ -49,7 +51,7 @@ inline string to_string(animal a){
     return data;
 }
 
-inline void show_animal(animal &a){
+inline void show_animal(animal a){
     cout << endl;
     cout << "Name: " << a.name << endl;
     cout << "Type: " << a.type << endl;

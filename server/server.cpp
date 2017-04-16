@@ -13,14 +13,10 @@
 
 using namespace std;
 
-
-
-
 //-----No dependencies
 #include "src/animal.cpp"
 #include "src/hash.cpp"
 #include "src/file_hash.cpp"
-
 
 //-----Dependencies
 #include "src/hash_table.cpp"
@@ -29,14 +25,23 @@ using namespace std;
 #include "src/test.cpp"                      //Test of application functionalities
 #include "src/random.cpp"                    //Use hash_table for show
 
-
-
-void check_user_option_main_menu(char request[16]){
-
+void check_user_option_main_menu(char request[16], int socketfd){
+    int r;
     animal a1;
     //Insert a pet
     if(request[0] = '1'){
-        options_main_menu(1,a1);
+        
+        //receive an animal
+        r = recv(socketfd, &a1, sizeof(a1), 0);
+        show_animal(a1);
+       /* cout << "Name: " << a1.name << endl;
+        cout << "Type: " << a1.type << endl;
+        cout << "Age: " << a1.age << endl;
+        cout << "Breed: " << a1.breed << endl;
+        cout << "Height: " << a1.height << endl;
+        cout << "Weight: " << a1.weight << endl;
+        cout << "Genre: " << a1.genre << endl;*/
+       // options_main_menu(1,a1);
     }
     //Show a pet
     else if(request[0] = '2'){
@@ -57,12 +62,13 @@ void * function (void *ap){
 	char request[16];
     double val= 0;
 	int r;
+    int socketfd =  *(int*)ap; //WOW --> not evident
 	while(true){
-	    cout << "Actions that the user can do ... " << *(int*)ap <<endl << endl;
-        r = recv(*(int*)ap, request, 16, 0);
+	    cout << "Actions that the user can do ... " << socketfd <<endl << endl;
+        r = recv(socketfd, request, 16, 0);
         //Check the option of the user
-        check_user_option_main_menu(request);
-		printf("Cliente #%d:  %s \n",*(int*)ap,  request);
+        check_user_option_main_menu(request, socketfd);
+		printf("Cliente #%d , option =:  %s \n",socketfd,  request);
 
 	}
 	close(*(int*)ap);
@@ -120,7 +126,6 @@ void create_server(){
 	}
 
 	close(server_code);
-
 }
 
 int main(){
