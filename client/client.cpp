@@ -37,6 +37,7 @@ void main_menu(){
 
 void menu(string opt){
     cout << "Option of the user: " <<opt[1] << endl;
+    char  answer[100];
     if (opt[0] == '1'){
            //Define the necesary fields for inserting an animal
         char name[32];   
@@ -71,6 +72,11 @@ void menu(string opt){
         }else{
             cout << "The animal has been sent. \n";
         }
+
+        //Now receive the answer of the server about the operation
+        r = recv(clientfd, answer, 100, 0);
+        cout << endl << endl;
+        cout << "Server response: " << answer << endl;
 
     }
 }

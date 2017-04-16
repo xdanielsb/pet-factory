@@ -28,7 +28,7 @@ inline int write_animal(animal a, int pos){
 /*
  * Operation for the user for create an animal from memory to disk
  */
-inline void insert_animal(animal a1 ){
+inline bool insert_animal(animal &a1){
 
     //Getting the hash number of the animal
     ll hash = get_hash(a1.name);
@@ -38,8 +38,12 @@ inline void insert_animal(animal a1 ){
 
     //Save location in hash table
     data[hash].push_back(location_disk);
-    cout << "The register has been inserted succesfully" << endl;
 
+    cout << "The register has been inserted succesfully" << endl;
+    
+
+    //Hahah lol, 
+    return true;
 }
 
 /*

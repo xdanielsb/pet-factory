@@ -30,30 +30,22 @@ void check_user_option_main_menu(char request[16], int socketfd){
     animal a1;
     //Insert a pet
     if(request[0] = '1'){
-        
         //receive an animal
         r = recv(socketfd, &a1, sizeof(a1), 0);
         show_animal(a1);
-       /* cout << "Name: " << a1.name << endl;
-        cout << "Type: " << a1.type << endl;
-        cout << "Age: " << a1.age << endl;
-        cout << "Breed: " << a1.breed << endl;
-        cout << "Height: " << a1.height << endl;
-        cout << "Weight: " << a1.weight << endl;
-        cout << "Genre: " << a1.genre << endl;*/
-       // options_main_menu(1,a1);
+        options_main_menu(1, a1, socketfd);
     }
     //Show a pet
     else if(request[0] = '2'){
-        options_main_menu(2,a1);
+        options_main_menu(2, a1, socketfd);
     }
     //Delete a pet
     else if(request[0] = '3'){
-        options_main_menu(3,a1);
+        options_main_menu(3, a1, socketfd);
     }
     //Search for a register
     else if(request[0] = '4'){
-        options_main_menu(4,a1);
+        options_main_menu(4, a1, socketfd);
     }
     //Exit 5 option not yet
 }

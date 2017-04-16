@@ -49,6 +49,7 @@ inline string to_string(animal a){
     return data;
 }
 
+
 inline void show_animal(animal &a){
     cout << endl;
     cout << "Name: " << a.name << endl;
