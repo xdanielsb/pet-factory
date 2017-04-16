@@ -12,11 +12,9 @@
 #define PORT 3535  /* This need to be  the same port  of the server part */
 #define LOOPBACK "127.0.0.1"
 #define ERROR -1
-#define TENBYTES 10
 #define ONLY 0 //When there is just one  protocol that supports the socket
 
 using namespace std;
-
 
 int main(){
     int clientfd, r;
@@ -40,24 +38,30 @@ int main(){
     if(r == ERROR){
         perror("Woops, there was an error connecting...");
     }
-    cout << " \n\t\t Here I am going to show that the user can do. \n";
-    cout << "Option 1 (1)" << endl;
-    cout << "Option 2 (2)" << endl;
-    cout << "Option 3 (3)" << endl;
-    cout << "Option 4 (4)" << endl;
-    cout << "Option 5 (5)" << endl;
 
-    cout << "Write your name : ";
+    int intr =1;
+    while(true){
 
-    vector < char > buffer;
-    string name;
-    cin >> name;
-    for (int i= 0; i<name.size(); i++)
-        buffer.push_back(name[i]);
+        cout << "\n\tHello User, Welcome to Pet Factory" << endl;
+        cout << "\n\t\t This are the options that we offer" << endl;
+        cout << "\t1. Insert a register " <<endl;
+        cout << "\t2. Show a register " <<endl;
+        cout << "\t3. Delete  a register " <<endl;
+        cout << "\t4. Search for a register " <<endl;
+        cout << "\t5. Salir " <<endl;
+        cout << "user-clinica> ";
 
-    r = send(clientfd, buffer.data(), buffer.size(), 0);
-    if (r != buffer.size()){
-        //Re send;
+        vector < char > buffer;
+        string name;
+        cin >> name;
+        for (int i= 0; i<name.size(); i++)
+            buffer.push_back(name[i]);
+
+        r = send(clientfd, buffer.data(), buffer.size(), 0);
+        if (r != buffer.size()){
+            //Re send;
+        }
+
     }
     close(clientfd);
 
