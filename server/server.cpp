@@ -32,28 +32,32 @@ using namespace std;
 
 
 
+void check_user_option_main_menu(char request[16]){
+    if(request[0] = '1'){
+        menu_op(1);
+    }
+    else if(request[0] = '2'){
+        menu_op(2);
+    }
+    else if(request[0] = '3'){
+        menu_op(3);
+    }
+    else if(request[0] = '4'){
+        menu_op(4);
+    }
+}
 
 void * function (void *ap){
-	char buffer[16];
+	char request[16];
     double val= 0;
 	int r;
 	while(true){
 	    cout << "Actions that the user can do ... " << *(int*)ap <<endl << endl;
-		r = recv(*(int*)ap, buffer, 16, 0);
-		printf("Cliente #%d:  %s \n",*(int*)ap,  buffer);
+        r = recv(*(int*)ap, request, 16, 0);
+        //Check the option of the user
+        check_user_option_main_menu(request);
+		printf("Cliente #%d:  %s \n",*(int*)ap,  request);
 
-		if(buffer[0] = '1'){
-			menu_op(1);
-		}
-		else if(buffer[0] = '2'){
-			menu_op(2);
-		}
-		else if(buffer[0] = '3'){
-			menu_op(3);
-		}
-		else if(buffer[0] = '4'){
-			menu_op(4);
-		}
 	}
 	close(*(int*)ap);
 }

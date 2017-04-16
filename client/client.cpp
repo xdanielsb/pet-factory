@@ -17,7 +17,18 @@
 using namespace std;
 
 
-int main(){
+void main_menu(){
+    cout << "\n\tHello User, Welcome to Pet Factory" << endl;
+    cout << "\n\t\t This are the options that we offer" << endl;
+    cout << "\t1. Insert a register " <<endl;
+    cout << "\t2. Show a register " <<endl;
+    cout << "\t3. Delete  a register " <<endl;
+    cout << "\t4. Search for a register " <<endl;
+    cout << "\t5. Salir " <<endl;
+    cout << "user-clinica> ";
+}
+
+void create_client(){
     int clientfd, r;
     struct sockaddr_in client;
 
@@ -42,30 +53,29 @@ int main(){
 
     int intr =1;
     while(true){
+        //Display main menu
+        main_menu();
 
-        cout << "\n\tHello User, Welcome to Pet Factory" << endl;
-        cout << "\n\t\t This are the options that we offer" << endl;
-        cout << "\t1. Insert a register " <<endl;
-        cout << "\t2. Show a register " <<endl;
-        cout << "\t3. Delete  a register " <<endl;
-        cout << "\t4. Search for a register " <<endl;
-        cout << "\t5. Salir " <<endl;
-        cout << "user-clinica> ";
-
+        //Buffer that storage the request
         vector < char > buffer;
-        string name;
-        cin >> name;
-        for (int i= 0; i<name.size(); i++)
-            buffer.push_back(name[i]);
+
+        //Option tha the user
+        string opcion;
+        cin >> opcion;
+        for (int i= 0; i<opcion.size(); i++)
+            buffer.push_back(opcion[i]);
 
         r = send(clientfd, buffer.data(), buffer.size(), 0);
         if (r != buffer.size()){
             //Re send;
+            cout << "The message have not been sent completely. \n";
         }
-
     }
     close(clientfd);
+}
 
 
+int main(){
+    create_client();
     return 0;
 }
