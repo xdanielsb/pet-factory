@@ -42,15 +42,13 @@ inline void menu(){
 }
 
 /*
- *  This menu is called in architecture client server
+ *  This menu is called in architecture client-server
  */
-inline void options_main_menu(int op){
-    int opcion = 2;
-    char c;
+inline void options_main_menu(int opcion, animal a1){
     system("'Se realizo una operacion \n' >> serverDogs.log ");
     if (opcion == 1){
         //Need to receive an animal
-        insert_animal();
+        insert_animal(a1);
     }
     else if(opcion == 2){
         show_animal();

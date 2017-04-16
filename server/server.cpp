@@ -32,21 +32,23 @@ using namespace std;
 
 
 void check_user_option_main_menu(char request[16]){
+
+    animal a1;
     //Insert a pet
     if(request[0] = '1'){
-        options_main_menu(1);
+        options_main_menu(1,a1);
     }
     //Show a pet
     else if(request[0] = '2'){
-        options_main_menu(2);
+        options_main_menu(2,a1);
     }
     //Delete a pet
     else if(request[0] = '3'){
-        options_main_menu(3);
+        options_main_menu(3,a1);
     }
     //Search for a register
     else if(request[0] = '4'){
-        options_main_menu(4);
+        options_main_menu(4,a1);
     }
     //Exit 5 option not yet
 }
