@@ -25,45 +25,46 @@ using namespace std;
 #include "src/test.cpp"                      //Test of application functionalities
 #include "src/random.cpp"                    //Use hash_table for show
 
-void check_user_option_main_menu(char request[16], int socketfd){
+void check_user_option_main_menu(int request, int socketfd){
     int r;
-    animal a1;
+
+    printf("Cliente #%d , Request =:  %d \n",socketfd,  request);
     //Insert a pet
-    if(request[0] = '1'){
-        //receive an animal
-        r = recv(socketfd, &a1, sizeof(a1), 0);
-        show_animal(a1);
-        options_main_menu(1, a1, socketfd);
+    if(request == 1){
+        cout << "\t\t SERVER: USER SELECT INSERT \n";
+        options_main_menu(1, socketfd);
     }
     //Show a pet
-    else if(request[0] = '2'){
-        options_main_menu(2, a1, socketfd);
+    else if(request == 2){
+        cout << "\t\t SERVER: USER SELECT SHOW \n";
+        options_main_menu(2, socketfd);
     }
     //Delete a pet
-    else if(request[0] = '3'){
-        options_main_menu(3, a1, socketfd);
+    else if(request == 3){
+        cout << "\t\t SERVER: USER SELECT DELETE \n";
+        options_main_menu(3, socketfd);
     }
     //Search for a register
-    else if(request[0] = '4'){
-        options_main_menu(4, a1, socketfd);
+    else if(request == 4){
+        cout << "\t\t SERVER: USER SELECT SEARCH \n";
+        options_main_menu(4, socketfd);
     }
     //Exit 5 option not yet
 }
 
 void * function (void *ap){
-	char request[16];
+	int request;
     double val= 0;
 	int r;
     int socketfd =  *(int*)ap; //WOW --> not evident
 	while(true){
-	    cout << "Actions that the user can do ... " << socketfd <<endl << endl;
-        r = recv(socketfd, request, 16, 0);
+	    cout << "Waiting for a request ... " << socketfd << endl << endl;
+        r = recv(socketfd, &request, sizeof(request), 0);
+
         //Check the option of the user
         check_user_option_main_menu(request, socketfd);
-		printf("Cliente #%d , option =:  %s \n",socketfd,  request);
-
 	}
-	close(*(int*)ap);
+	close(socketfd);
 }
 
 
@@ -120,7 +121,18 @@ void create_server(){
 	close(server_code);
 }
 
+void load_data(bool from_scratch){
+    if(!from_scratch){
+        cout << "Server: The data has  been read from disk" <<endl;
+        LOC = total_number_animals()+1; //re pos end of the file for insertion
+        cout << "Server: The number or registers that were readen from disk were: " << (LOC -1)<< endl;
+    }else{
+        create_random_data();
+    }
+}
+
 int main(){
+    load_data(true);
     create_server();
 	return 0;
 }

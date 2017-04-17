@@ -52,13 +52,13 @@ inline string to_string(animal a){
 
 inline void show_animal(animal &a){
     cout << endl;
-    cout << "Name: " << a.name << endl;
-    cout << "Type: " << a.type << endl;
-    cout << "Age: " << a.age << endl;
-    cout << "Breed: " << a.breed << endl;
-    cout << "Height: " << a.height << endl;
-    cout << "Weight: " << a.weight << endl;
-    cout << "Genre: " << a.genre << endl;
+    cout << "\t\tName: " << a.name << endl;
+    cout << "\t\tType: " << a.type << endl;
+    cout << "\t\tAge: " << a.age << endl;
+    cout << "\t\tBreed: " << a.breed << endl;
+    cout << "\t\tHeight: " << a.height << endl;
+    cout << "\t\tWeight: " << a.weight << endl;
+    cout << "\t\tGenre: " << a.genre << endl;
 }
 
 

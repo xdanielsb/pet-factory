@@ -35,10 +35,10 @@ void main_menu(){
     cout << "user-clinica> ";
 }
 
-void menu(string opt){
-    cout << "Option of the user: " <<opt[1] << endl;
+void menu(int opt){
+    cout << "Option of the user: " << opt << endl;
     char  answer[100];
-    if (opt[0] == '1'){
+    if (opt == 1){
            //Define the necesary fields for inserting an animal
         char name[32];   
         char type[32];   
@@ -79,6 +79,40 @@ void menu(string opt){
         cout << "Server response: " << answer << endl;
 
     }
+    if (opt == 2){
+        int number_register;
+        animal a1;
+        cout << "\n SHOW REGISTER \n";
+        //Receive the number of clients
+        
+        r = recv(clientfd, answer, 100, 0);
+        
+        cout << " Total number of registers is: " << answer;
+        cout << " User write the number of the register to see, please" << endl;
+        cout << " Number of the register = " ;
+        cin >> number_register;
+        
+        r = send(clientfd, &number_register, sizeof(number_register), 0);
+        //Receive the answer of the user  'animal'
+        r = recv(clientfd, &a1, sizeof(a1), 0);
+        //Show the animal
+        show_animal(a1);
+
+    }
+    if(opt == 3){
+        //show_hash_table();
+        int number_register;
+        cout << "\n DELETE REGISTER \n";
+        cout << " Number of the register = " ;
+    
+        cin >> number_register;
+        r = send(clientfd, &number_register, sizeof(number_register), 0);
+
+        //Now receive the answer of the server about the operation
+        r = recv(clientfd, answer, 100, 0);
+        cout << endl << endl;
+        cout << "Server response: " << answer << endl;
+    }
 }
 
 
@@ -109,20 +143,14 @@ void create_client(){
         //Display main menu
         main_menu();
 
-        //Buffer that storage the request
-        vector < char > buffer;
-
-        //Option tha the user
-        string opcion;
+        //Option that the user choose
+        int opcion;
         cin >> opcion;
 
-        for (int i= 0; i<opcion.size(); i++)
-            buffer.push_back(opcion[i]);
-
-        r = send(clientfd, buffer.data(), buffer.size(), 0);
-        if (r != buffer.size()){
+        r = send(clientfd, &opcion, sizeof(opcion), 0);
+        if (r != sizeof(opcion)){
             //Re send;
-            cout << "The message have not been sent completely. \n";
+            cout << "CLIENT: The option have not been sent completely. \n";
         }
 
         //Now after request is sent called another menu

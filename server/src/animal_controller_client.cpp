@@ -47,47 +47,42 @@ inline bool insert_animal(animal &a1){
 }
 
 /*
- * User operation for show the animal
+ * Get the total number of animal
  */
 
-inline void show_animal(){
-    ll total = 0;
+int total_number_animals(){
+    ll total = -1;
     int number_register;
-    cout << "\n SHOW REGISTER \n";
+    
     for(int i=0; i< size_hash_table; i++){
         total += data[i].size();
     }
-    cout << " Total number of registers is: " << (total-1);
-    cout << " User write the number of the register to see, please" << endl;
-    cout << " Number of the register = " ;
-    
-    cin >> number_register;
+    return total;
+}
 
-    if (exist(number_register) && number_register <= (total-1)){        //First Check in RAM
-        animal aux = read_animal(number_register);   //SECOND ACCESS TO DISK
+/*
+ * User operation for show the animal
+ */
+
+inline animal show_animal(int number_register, int comodin){
+    int total = total_number_animals();
+    animal aux;
+    if (exist(number_register) && number_register <= total){        //First Check in RAM
+        aux = read_animal(number_register);   //SECOND ACCESS TO DISK
         show_animal(aux);
     }else{
         cout << "\nUser that number is not register in the database\n";
     }
-
-    
+    return aux;
 }
     
 
 /*
  * Delete animal
  */
-inline void delete_animal(){
+inline bool delete_animal(int number_register){
 
-    //show_hash_table();
-    int number_register;
-    cout << "\n DELETE REGISTER \n";
-    
-    
-    cout << " Number of the register = " ;
-    
-    cin >> number_register;
-  
+
     if (exist(number_register)){      //Exist?  
        // show_hash_table();
         delete_item(number_register); //First delete from memory
@@ -102,13 +97,12 @@ inline void delete_animal(){
         animal aux = read_animal(greatest);
         //Write the last animal in the location that was  erase in hash table
         delete_file(aux,number_register);
+        return true;
 
-
-        
-        
     //    show_hash_table();
     }else{
-        cout << "\nUser that number is not registered in the database\n";
+        cout << "\n\t\tSERVER: User that number is not registered in the database\n";
+        return false;
     }
     
 
