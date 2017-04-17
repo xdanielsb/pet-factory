@@ -69,6 +69,12 @@ inline void options_main_menu(int opcion, int socketfd){
         r = send(socketfd, buffer.data(), buffer.size(), 0);
     }
     else if(opcion == 4){
-        show_animal_r();
+        //Receive the name of the animal
+        string name;
+
+        show_animal_r(name);
+    }else if(opcion == 5){
+        cout << "\t\tServer: The hash table is being written in disk.\n";
+        write_hash_table();
     }
 }

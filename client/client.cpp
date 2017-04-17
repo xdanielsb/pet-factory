@@ -79,7 +79,7 @@ void menu(int opt){
         cout << "Server response: " << answer << endl;
 
     }
-    if (opt == 2){
+    else if (opt == 2){
         int number_register;
         animal a1;
         cout << "\n SHOW REGISTER \n";
@@ -99,7 +99,7 @@ void menu(int opt){
         show_animal(a1);
 
     }
-    if(opt == 3){
+    else if(opt == 3){
         //show_hash_table();
         int number_register;
         cout << "\n DELETE REGISTER \n";
@@ -112,7 +112,13 @@ void menu(int opt){
         r = recv(clientfd, answer, 100, 0);
         cout << endl << endl;
         cout << "Server response: " << answer << endl;
-    }
+    }else if(opt == 4){
+        string name;
+        cout << "\n SHOW ANIMALS BY NAME\n";
+    
+        cout << " Name of the register = " ; cin >> name;
+    
+    } 
 }
 
 

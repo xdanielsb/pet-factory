@@ -56,10 +56,6 @@ inline void launch_application(bool initilize_from_scratch = false){
     menu();
 
 
-    // example_write_show_animal();
-    // example_loading_hash_table();
-    // example_creating_hash_table();
-
 }
 
 int main(int argc, char* argv[]){

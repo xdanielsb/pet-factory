@@ -54,14 +54,18 @@ void check_user_option_main_menu(int request, int socketfd){
 
 void * function (void *ap){
 	int request;
+    bool flag = true;
     double val= 0;
 	int r;
     int socketfd =  *(int*)ap; //WOW --> not evident
-	while(true){
+	while(flag){
 	    cout << "Waiting for a request ... " << socketfd << endl << endl;
-        r = recv(socketfd, &request, sizeof(request), 0);
 
-        //Check the option of the user
+        r = recv(socketfd, &request, sizeof(request), 0);
+        if(request == 5){
+            cout << "Server BYE BYE";
+            flag = false;
+        }
         check_user_option_main_menu(request, socketfd);
 	}
 	close(socketfd);

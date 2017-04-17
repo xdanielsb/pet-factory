@@ -111,21 +111,17 @@ inline bool delete_animal(int number_register){
 /*
  * Show animals with an specific name
  */
-inline void show_animal_r(){
-    string name;
-    cout << "\n SHOW ANIMALS BY NAME\n";
+inline void show_animal_r(string name){
     
-    
-    cout << " Name of the register = " ; cin >> name;
     int hash = get_hash (name);
-    cout << " The hash of " << name << " is: " << hash << endl;
+    cout << "\t\tServer : The hash of " << name << " is: " << hash << endl;
 
     vi values = get_locations(hash);
-    cout << endl <<"Number of positions in disk with the same hash: " << values.size() << endl;
+    cout << endl <<"\t\tServer: Number of positions in disk with the same hash: " << values.size() << endl;
 
     show_row_table(hash);
 
-    cout << endl << "Animals that has the same hash :" << endl;
+    cout << endl << "\t\tAnimals that has the same hash :" << endl;
 
     for (int i= 0; i< values.size(); i++){
         
