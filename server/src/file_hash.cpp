@@ -7,7 +7,7 @@
 
 inline void write_file_hash(vvi data){
     ofstream outFile;
-    outFile.open("var/new_hash_table.txt");
+    outFile.open("var/hash_table");
     //Check for error
     if(outFile.fail()){
         cerr << "Error opening file" << endl;
@@ -27,7 +27,7 @@ inline void write_file_hash(vvi data){
 
 inline vvi read_file_hash(){
     ifstream  inFile;
-    inFile.open("var/new_hash_table.txt");
+    inFile.open("var/hash_table");
     vvi re;
     //Check for error
     if(inFile.fail()){
@@ -51,9 +51,4 @@ inline vvi read_file_hash(){
    return re;
 }
 
-/*
-int main(){
-    write_file_hash();
-    //read_file_hash();
-}*/
 

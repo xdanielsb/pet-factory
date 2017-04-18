@@ -16,7 +16,7 @@ int indicator;
 
 inline void write_file(animal a,int pos){
     //The file must exist
-    myfile = fopen("var/data.bin", "rb+");
+    myfile = fopen("var/structures.bin", "rb+");
     if (myfile != NULL) { //SUCCESS OPERATION?
         //cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
@@ -32,7 +32,7 @@ inline void write_file(animal a,int pos){
 }
 
 inline animal read_file(int pos){
-    myfile = fopen("var/data.bin", "rb");
+    myfile = fopen("var/structures.bin", "rb");
     animal a ;//= malloc(sizeof(animal));
     if (myfile != NULL) { //SUCCESS OPERATION?
     //    cout << "read pos:  " << pos <<  " * sizeof(animal)" << endl;
@@ -52,7 +52,7 @@ inline animal read_file(int pos){
 
 inline void delete_file(animal a,int pos){
     //The file must exist
-    myfile = fopen("var/data.bin", "rb+");
+    myfile = fopen("var/structures.bin", "rb+");
     if (myfile != NULL) { //SUCCESS OPERATION?
         cout << "write pos:  " << pos << " * sizeof(animal)" <<  endl;
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);

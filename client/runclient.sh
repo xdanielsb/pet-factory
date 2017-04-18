@@ -1,1 +1,1 @@
-g++ -std=c++11 client.cpp -o client && ./client
+g++ -std=c++11 client.cpp -o client.o && ./client.o

@@ -141,7 +141,6 @@ void create_server(){
 
 void load_data(bool from_scratch){
     if(!from_scratch){
-
         cout << "The data has  been read from disk" <<endl;
         data = read_file_hash(); //hash_table
         ll total = 0;
@@ -150,8 +149,6 @@ void load_data(bool from_scratch){
         }
         LOC = total; //re pos end of the file for insertion
         cout << "The number or registers that were readen from disk were: " << (total -1)<< endl;
-
-
     }else{
         create_random_data();
         write_hash_table();
@@ -159,7 +156,9 @@ void load_data(bool from_scratch){
 }
 
 int main(){
-    load_data(false);
+    cout <<"ADMIN : REMEMBER THAT THE FILE var/structures.bin must exist." << endl;
+    bool aux = true;
+    load_data(aux);
     create_server();
 	return 0;
 }
