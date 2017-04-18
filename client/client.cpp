@@ -40,11 +40,11 @@ void menu(int opt){
     char  answer[100];
     if (opt == 1){
            //Define the necesary fields for inserting an animal
-        char name[32];   
-        char type[32];   
-        char breed[16];  
-        char genre;    
-        int32_t age;   
+        char name[32];
+        char type[32];
+        char breed[16];
+        char genre;
+        int32_t age;
         int32_t height;
         int32_t weight;
 
@@ -53,7 +53,7 @@ void menu(int opt){
         cout << "\n\tName   = "; cin >> name;
         cout << "\n\ttype   = "; cin >> type;
         cout << "\n\tbreed  = "; cin >> breed;
-        cout << "\n\tGenre if it is Female write a {F} but if it is Male  write  a {M}\n"; 
+        cout << "\n\tGenre if it is Female write a {F} but if it is Male  write  a {M}\n";
         cout << "\n\tgenre  = "; cin >> genre;
         cout << "\n\tage    = "; cin >> age;
         cout << "\n\theight = "; cin >> height;
@@ -61,10 +61,10 @@ void menu(int opt){
 
 
         //Instance the animal
-        animal a1(name, type, age, breed,height, weight, genre);   
+        animal a1(name, type, age, breed,height, weight, genre);
 
         //animal a1("Zeus", "Lion", 23, "Warrior", 12, 34, 'M');
-        
+
         r = send(clientfd, &a1, sizeof(a1), 0);
         if (r != sizeof(a1)){
             //Re send;
@@ -84,19 +84,23 @@ void menu(int opt){
         animal a1;
         cout << "\n SHOW REGISTER \n";
         //Receive the number of clients
-        
+
         r = recv(clientfd, answer, 100, 0);
-        
+
         cout << " Total number of registers is: " << answer;
         cout << " User write the number of the register to see, please" << endl;
         cout << " Number of the register = " ;
         cin >> number_register;
-        
+
         r = send(clientfd, &number_register, sizeof(number_register), 0);
         //Receive the answer of the user  'animal'
         r = recv(clientfd, &a1, sizeof(a1), 0);
         //Show the animal
         show_animal(a1);
+
+        string cadena = "echo  \"The animal that was readen from disk was: \n Name: "+to_string(a1)+ " \" > hist.clinic ";
+        system(cadena.c_str());
+        system("gedit hist.clinic");
 
     }
     else if(opt == 3){
@@ -104,7 +108,7 @@ void menu(int opt){
         int number_register;
         cout << "\n DELETE REGISTER \n";
         cout << " Number of the register = " ;
-    
+
         cin >> number_register;
         r = send(clientfd, &number_register, sizeof(number_register), 0);
 
@@ -113,12 +117,29 @@ void menu(int opt){
         cout << endl << endl;
         cout << "Server response: " << answer << endl;
     }else if(opt == 4){
+        vector < char > buffer;
         string name;
+        animal a1;
         cout << "\n SHOW ANIMALS BY NAME\n";
-    
+
         cout << " Name of the register = " ; cin >> name;
-    
-    } 
+
+        for (int i= 0; i<name.size(); i++)
+            buffer.push_back(name[i]);
+        //Send answer to the client
+        r = send(clientfd, buffer.data(), buffer.size(), 0);
+
+        //Receive the answer of the user  'animal'
+        r = recv(clientfd, &a1, sizeof(a1), 0);
+        //Show the animal
+        show_animal(a1);
+
+
+    } else if( opt == 5){
+        cout << "\n BYE USER \n" << endl;
+        cout << "\n\t" << "SEE YOU LATER" << endl;
+
+    }
 }
 
 
@@ -145,7 +166,8 @@ void create_client(){
     }
 
     int intr =1;
-    while(true){
+    bool flag = true;
+    while(flag){
         //Display main menu
         main_menu();
 
@@ -161,6 +183,9 @@ void create_client(){
 
         //Now after request is sent called another menu
         menu(opcion);
+        if(opcion == 5){
+            flag = false;
+        }
     }
     close(clientfd);
 }

@@ -24,31 +24,45 @@ using namespace std;
 #include "src/application_controller.cpp"    //Declare animal
 #include "src/test.cpp"                      //Test of application functionalities
 #include "src/random.cpp"                    //Use hash_table for show
+#include <stdio.h>
+#include <stdlib.h>
 
 void check_user_option_main_menu(int request, int socketfd){
     int r;
+    string cadena = __DATE__ ;
+
+    string user = to_string(socketfd);
 
     printf("Cliente #%d , Request =:  %d \n",socketfd,  request);
     //Insert a pet
     if(request == 1){
-        cout << "\t\t SERVER: USER SELECT INSERT \n";
+        cadena += "\t\t SERVER: USER SELECT INSERT " + user  +"\n";
         options_main_menu(1, socketfd);
     }
     //Show a pet
     else if(request == 2){
-        cout << "\t\t SERVER: USER SELECT SHOW \n";
+        cadena += "\t\t SERVER: USER SELECT SHOW " +user +"\n";
         options_main_menu(2, socketfd);
     }
     //Delete a pet
     else if(request == 3){
-        cout << "\t\t SERVER: USER SELECT DELETE \n";
+        cadena += "\t\t SERVER: USER SELECT DELETE " + user +"\n";
         options_main_menu(3, socketfd);
     }
     //Search for a register
     else if(request == 4){
-        cout << "\t\t SERVER: USER SELECT SEARCH \n";
+        cadena +="\t\t SERVER: USER SELECT SEARCH "+ user +"\n";
         options_main_menu(4, socketfd);
     }
+    else if(request == 5){
+        cadena +="\t\t SERVER: USER SELECT EXIT "+ user +"\n";
+    }
+
+    cout << cadena;
+
+    cadena ="echo \" "+cadena+" \" >> serverDogs.log";
+    system(cadena.c_str());
+
     //Exit 5 option not yet
 }
 
@@ -127,16 +141,25 @@ void create_server(){
 
 void load_data(bool from_scratch){
     if(!from_scratch){
-        cout << "Server: The data has  been read from disk" <<endl;
-        LOC = total_number_animals()+1; //re pos end of the file for insertion
-        cout << "Server: The number or registers that were readen from disk were: " << (LOC -1)<< endl;
+
+        cout << "The data has  been read from disk" <<endl;
+        data = read_file_hash(); //hash_table
+        ll total = 0;
+        for(int i=0; i< size_hash_table; i++){
+            total += data[i].size();
+        }
+        LOC = total; //re pos end of the file for insertion
+        cout << "The number or registers that were readen from disk were: " << (total -1)<< endl;
+
+
     }else{
         create_random_data();
+        write_hash_table();
     }
 }
 
 int main(){
-    load_data(true);
+    load_data(false);
     create_server();
 	return 0;
 }

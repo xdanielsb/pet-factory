@@ -12,7 +12,7 @@ inline animal read_animal(int pos){
  */
 inline int write_animal(animal a){
     int pos = get_code();//Get the position in disk to storage the animal
-    write_file(a, pos);   
+    write_file(a, pos);
   // read_animal(pos);
   return pos;
 }
@@ -21,7 +21,7 @@ inline int write_animal(animal a){
  * Write animal in disk but in custom location
  */
 inline int write_animal(animal a, int pos){
-    write_file(a, pos);   
+    write_file(a, pos);
     return pos;
 }
 
@@ -32,7 +32,7 @@ inline bool insert_animal(animal &a1){
 
     //Getting the hash number of the animal
     ll hash = get_hash(a1.name);
-        
+
     //Persisting the animal and getting the location in disk
     ll location_disk = write_animal(a1);
 
@@ -40,9 +40,9 @@ inline bool insert_animal(animal &a1){
     data[hash].push_back(location_disk);
 
     cout << "The register has been inserted succesfully" << endl;
-    
 
-    //Hahah lol, 
+
+    //Hahah lol,
     return true;
 }
 
@@ -53,7 +53,7 @@ inline bool insert_animal(animal &a1){
 int total_number_animals(){
     ll total = -1;
     int number_register;
-    
+
     for(int i=0; i< size_hash_table; i++){
         total += data[i].size();
     }
@@ -69,13 +69,13 @@ inline animal show_animal(int number_register, int comodin){
     animal aux;
     if (exist(number_register) && number_register <= total){        //First Check in RAM
         aux = read_animal(number_register);   //SECOND ACCESS TO DISK
-        show_animal(aux);
+    //    show_animal(aux);
     }else{
-        cout << "\nUser that number is not register in the database\n";
+        cout << "\nServer : User that number is not register in the database\n";
     }
     return aux;
 }
-    
+
 
 /*
  * Delete animal
@@ -83,16 +83,16 @@ inline animal show_animal(int number_register, int comodin){
 inline bool delete_animal(int number_register){
 
 
-    if (exist(number_register)){      //Exist?  
+    if (exist(number_register)){      //Exist?
        // show_hash_table();
         delete_item(number_register); //First delete from memory
-        
+
         //Now interchange move the last position to this location
         //It is important remark that number_register is the location in memory
         int greatest =  change_greatest_location(number_register);
         cout << endl;
 
-        //Change this locations 
+        //Change this locations
         //Get the animal in the greatest location: The end of the file
         animal aux = read_animal(greatest);
         //Write the last animal in the location that was  erase in hash table
@@ -104,15 +104,15 @@ inline bool delete_animal(int number_register){
         cout << "\n\t\tSERVER: User that number is not registered in the database\n";
         return false;
     }
-    
+
 
 }
 
 /*
  * Show animals with an specific name
  */
-inline void show_animal_r(string name){
-    
+inline animal show_animal_r(string name){
+    vector < animal > result;
     int hash = get_hash (name);
     cout << "\t\tServer : The hash of " << name << " is: " << hash << endl;
 
@@ -124,7 +124,7 @@ inline void show_animal_r(string name){
     cout << endl << "\t\tAnimals that has the same hash :" << endl;
 
     for (int i= 0; i< values.size(); i++){
-        
+
         animal aux = read_animal(values[i]);
         string name_a(aux.name);
         //This line transform to lower case the name
@@ -136,10 +136,18 @@ inline void show_animal_r(string name){
             cout << "#" << i << endl;
             show_animal(aux);
             cout << endl;
+            result.push_back(aux);
         }
     }
+
+    if(result.size() > 0){
+        return result[0];
+    }else{
+        animal aux;
+        return aux;
+    }
+
+
     cout << endl;
-    
+
 }
-
-

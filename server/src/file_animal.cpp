@@ -44,7 +44,7 @@ inline animal read_file(int pos){
         fread(&a,sizeof(animal),NUM_DATA,myfile);
         fclose(myfile);
         return a;
-    }else{ 
+    }else{
         cout << "Error opening the data" << endl;
     }
 
@@ -58,20 +58,20 @@ inline void delete_file(animal a,int pos){
         fseek(myfile,sizeof(animal)*pos,SEEK_SET);
 
         indicator = ftell (myfile);
-        cout <<  "\tposition indicator : " << (indicator/sizeof(animal)) << endl;
+        cout <<  "\tServer: position indicator : " << (indicator/sizeof(animal)) << endl;
         fwrite(&a, sizeof(animal), NUM_DATA, myfile);
 
         //Truncating the file
-        cout << "truncate the file " << endl;
+        cout << "\tServer: truncate the file " << endl;
         fseek(myfile,0,SEEK_END);
         indicator = ftell(myfile);
-        cout << "The size of the file is " << indicator << endl;
+        cout << "\tServer:The size of the file is " << indicator << endl;
         int r = ftruncate(fileno(myfile), indicator-sizeof(animal));
-    
+
         fseek(myfile,0,SEEK_END);
         indicator = ftell(myfile);
-        cout << "The new size of the file is " << indicator << endl;
-    
+        cout << "\tServer:The new size of the file is " << indicator << endl;
+
         fclose(myfile);
 
     }else{

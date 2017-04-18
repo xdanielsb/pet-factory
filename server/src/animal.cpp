@@ -12,11 +12,11 @@ struct animal{
     char name[32];   //8 bytes
     char type[32];   //8 bytes
     char breed[16];  //8 bytes
-    char genre;    //1 bytes 
+    char genre;    //1 bytes
     int32_t age;       //4 bytes
     int32_t height;    //4 bytes
     int32_t weight;    //4 bytes
-    
+
 
     animal(){}
 
@@ -44,7 +44,7 @@ inline string to_string(animal a){
     string bb(a.type);
     string cc(a.breed);
     data += "Name: " + aa +"\n";
-    data += "Type: " + bb +"\n";    
+    data += "Type: " + bb +"\n";
     data += "Breed: " + cc +"\n";
     return data;
 }
@@ -60,5 +60,3 @@ inline void show_animal(animal &a){
     cout << "\t\tWeight: " << a.weight << endl;
     cout << "\t\tGenre: " << a.genre << endl;
 }
-
-
