@@ -4,7 +4,7 @@
 /*
  *  This menu is called in architecture client-server
  */
-inline void options_main_menu(int opcion, int socketfd){
+inline string options_main_menu(int opcion, int socketfd){
    // system("'Se realizo una operacion \n' >> serverDogs.log ");
     int r;
     vector < char > buffer;
@@ -72,7 +72,6 @@ inline void options_main_menu(int opcion, int socketfd){
     else if(opcion == 4){
         //Receive the name of the animal
 
-        //Now receive the answer of the server about the operation
         r = recv(socketfd, answer, 100, 0);
         cout << endl << endl;
         cout << "Server response: " << answer << endl;
@@ -88,9 +87,11 @@ inline void options_main_menu(int opcion, int socketfd){
         }else{
             cout << "\t\tServer: The animal has been sent. \n";
         }
+        return name;
 
     }else if(opcion == 5){
         cout << "\t\tServer: The hash table is being written in disk.\n";
         write_hash_table();
     }
+    return "";
 }

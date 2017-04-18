@@ -5,7 +5,9 @@
 #include <arpa/inet.h>   //htons
 #include <netinet/in.h>  //structs socketaddr_in
 #include <strings.h>
+#include <string>
 #include <unistd.h>
+#include <map>
 #define PORT 3535
 #define BACKLOG 8
 #define ERROR -1
@@ -27,40 +29,46 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 
-void check_user_option_main_menu(int request, int socketfd){
+
+/*  Global variables */
+map < int , string > clients_map; 
+
+void check_user_option_main_menu(int request, int socketfd ){
     int r;
-    string cadena = __DATE__ ;
+    string cadena = "";
 
     string user = to_string(socketfd);
 
     printf("Cliente #%d , Request =:  %d \n",socketfd,  request);
     //Insert a pet
     if(request == 1){
-        cadena += "\t\t SERVER: USER SELECT INSERT " + user  +"\n";
+        cadena += " INSERT ";
         options_main_menu(1, socketfd);
     }
     //Show a pet
     else if(request == 2){
-        cadena += "\t\t SERVER: USER SELECT SHOW " +user +"\n";
+        cadena += " SHOW ";
         options_main_menu(2, socketfd);
     }
     //Delete a pet
     else if(request == 3){
-        cadena += "\t\t SERVER: USER SELECT DELETE " + user +"\n";
+        cadena += " DELETE ";
         options_main_menu(3, socketfd);
     }
     //Search for a register
     else if(request == 4){
-        cadena +="\t\t SERVER: USER SELECT SEARCH "+ user +"\n";
-        options_main_menu(4, socketfd);
+
+        string aux = options_main_menu(4, socketfd);
+        //Return the name to search
+        cadena +=" SEARCH "+ aux +" ";
     }
     else if(request == 5){
-        cadena +="\t\t SERVER: USER SELECT EXIT "+ user +"\n";
+        cadena +=" EXIT ";
     }
 
     cout << cadena;
 
-    cadena ="echo \" "+cadena+" \" >> serverDogs.log";
+    cadena ="date \"+%H:%M:%S %d/%m/%y\" >>log.log && echo \" "+cadena+" " + clients_map[socketfd]+" \" >> log.log";
     system(cadena.c_str());
 
     //Exit 5 option not yet
@@ -73,7 +81,7 @@ void * function (void *ap){
 	int r;
     int socketfd =  *(int*)ap; //WOW --> not evident
 	while(flag){
-	    cout << "Waiting for a request ... " << socketfd << endl << endl;
+	    cout << "\n\n\t\tWaiting for a request ... " << socketfd << endl << endl;
 
         r = recv(socketfd, &request, sizeof(request), 0);
         if(request == 5){
@@ -117,7 +125,7 @@ void create_server(){
 	int client_code;
 	struct sockaddr_in  client;
 	size_t size_cli;
-	cout << "Waiting for a client..." << endl;
+	cout << "\n\t\tWaiting for a client..." << endl;
 	int cont = 0;
 	int result;
 	int arg =1,c; /*  c -> control variable */
@@ -127,7 +135,10 @@ void create_server(){
 		int *int_code = new int[0];
 		int_code[0] = client_code;
 
-		cout << "The client has connected "<< client_code  << endl;
+		
+        clients_map[client_code] = inet_ntoa(client.sin_addr);
+        cout << "\t\t The client " << clients_map[client_code] << " : Has connected\n";
+
 		if (r == ERROR){
 			cerr << "error accepting";
 		}
@@ -141,14 +152,14 @@ void create_server(){
 
 void load_data(bool from_scratch){
     if(!from_scratch){
-        cout << "The data has  been read from disk" <<endl;
+        cout << "\t Server: The data has  been read from disk" <<endl;
         data = read_file_hash(); //hash_table
         ll total = 0;
         for(int i=0; i< size_hash_table; i++){
             total += data[i].size();
         }
         LOC = total; //re pos end of the file for insertion
-        cout << "The number or registers that were readen from disk were: " << (total -1)<< endl;
+        cout << "\t Server: The number or registers that were readen from disk were: " << (total -1)<< endl;
     }else{
         create_random_data();
         write_hash_table();
@@ -156,8 +167,8 @@ void load_data(bool from_scratch){
 }
 
 int main(){
-    cout <<"ADMIN : REMEMBER THAT THE FILE var/structures.bin must exist." << endl;
-    bool aux = true;
+    cout <<" \n ADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n";
+    bool aux = false;
     load_data(aux);
     create_server();
 	return 0;
