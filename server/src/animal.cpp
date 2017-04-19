@@ -38,7 +38,7 @@ struct animal{
     }
 };
 
-inline string to_string(animal a){
+inline string to_string(animal &a){
     string data= "";
     string _name(a.name);
     string _type(a.type);

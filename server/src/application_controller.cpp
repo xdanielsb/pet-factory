@@ -42,6 +42,7 @@ inline string options_main_menu(int opcion, int socketfd){
 
         animal a1  = show_animal(number_register, 0);
         r = send(socketfd, &a1, sizeof(a1), 0);
+        cout << "Animal to send \n" << to_string(a1) <<"\n";
         if (r != sizeof(a1)){
             //Re send;
             cout << "\t\tServer: The message have not been sent completely. \n";

@@ -8,7 +8,7 @@
 #include <string>
 #include <unistd.h>
 #include <map>
-#define PORT 3535
+#define PORT 9999
 #define BACKLOG 8
 #define ERROR -1
 #define NUM_CLIENTS 3
@@ -31,7 +31,7 @@ using namespace std;
 
 
 /*  Global variables */
-map < int , string > clients_map; 
+map < int , string > clients_map;
 
 void check_user_option_main_menu(int request, int socketfd ){
     int r;
@@ -39,7 +39,6 @@ void check_user_option_main_menu(int request, int socketfd ){
 
     string user = to_string(socketfd);
 
-  //  printf("Cliente #%d , Request =:  %d \n",socketfd,  request);
     //Insert a pet
     if(request == 1){
         cadena += " INSERT ";
@@ -80,8 +79,11 @@ void * function (void *ap){
     int socketfd =  *(int*)ap; //WOW --> not evident
 	while(flag){
 	    cout << "\n\n\t\tServer:Waiting for a request ... " << endl;
-
-        r = recv(socketfd, &request, sizeof(request), 0);
+        while(request <= 0 || request >=6){
+            r = recv(socketfd, &request, sizeof(request), 0);
+        //    cout << r;
+        }
+        cout << request <<endl;
         if(request == 5){
             cout << "Server BYE BYE";
             flag = false;
@@ -135,7 +137,7 @@ void create_server(){
 		int *int_code = new int[0];
 		int_code[0] = client_code;
 
-		
+
         clients_map[client_code] = inet_ntoa(client.sin_addr);
         cout << "\t\t The client " << clients_map[client_code] << " : Has connected\n";
 
