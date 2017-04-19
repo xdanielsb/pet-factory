@@ -98,7 +98,7 @@ void menu(int opt){
         //Show the animal
         show_animal(a1);
 
-        string cadena = "echo  \"The animal that was readen from disk was: \n Name: "+to_string(a1)+ " \" > hist.clinic ";
+        string cadena = "echo  \" "+to_string(a1)+ " \" > hist.clinic ";
         system(cadena.c_str());
         system("gedit hist.clinic");
 

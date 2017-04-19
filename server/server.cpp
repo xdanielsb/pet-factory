@@ -22,7 +22,7 @@ using namespace std;
 
 //-----Dependencies
 #include "src/hash_table.cpp"
-#include "src/animal_controller_client.cpp"
+#include "src/animal_controller.cpp"
 #include "src/application_controller.cpp"    //Declare animal
 #include "src/test.cpp"                      //Test of application functionalities
 #include "src/random.cpp"                    //Use hash_table for show
@@ -39,7 +39,7 @@ void check_user_option_main_menu(int request, int socketfd ){
 
     string user = to_string(socketfd);
 
-    printf("Cliente #%d , Request =:  %d \n",socketfd,  request);
+  //  printf("Cliente #%d , Request =:  %d \n",socketfd,  request);
     //Insert a pet
     if(request == 1){
         cadena += " INSERT ";
@@ -66,8 +66,6 @@ void check_user_option_main_menu(int request, int socketfd ){
         cadena +=" EXIT ";
     }
 
-    cout << cadena;
-
     cadena ="date \"+%H:%M:%S %d/%m/%y\" >>log.log && echo \" "+cadena+" " + clients_map[socketfd]+" \" >> log.log";
     system(cadena.c_str());
 
@@ -81,7 +79,7 @@ void * function (void *ap){
 	int r;
     int socketfd =  *(int*)ap; //WOW --> not evident
 	while(flag){
-	    cout << "\n\n\t\tWaiting for a request ... " << socketfd << endl << endl;
+	    cout << "\n\n\t\tServer:Waiting for a request ... " << endl;
 
         r = recv(socketfd, &request, sizeof(request), 0);
         if(request == 5){
@@ -102,7 +100,7 @@ void create_server(){
 	pthread_t hilo[3];
 
 	if(server_code == -1){
-		cerr << "Error creating the socket" << endl;
+		cerr << "SERVER :: Error creating the socket" << endl;
 	}
 
 
@@ -114,18 +112,20 @@ void create_server(){
 	bzero(server.sin_zero, 8); /*Advise for standar posix */
 	int r = bind(server_code, (struct sockaddr *)&server, size);
 	if (r == ERROR){
-		cerr << "error in binding";
+		cerr<<"SERVER :: Error in binding\n";
+        return;
 	}
 	r = listen(server_code, BACKLOG);
 	if (r == ERROR){
-		cerr << "error in listening";
+		cerr << "SERVER :: Error in listening\n";
+        return;
 	}
 
 	//Now the client
 	int client_code;
 	struct sockaddr_in  client;
 	size_t size_cli;
-	cout << "\n\t\tWaiting for a client..." << endl;
+	cout << "\n\t\tServer: Waiting for a client..." << endl;
 	int cont = 0;
 	int result;
 	int arg =1,c; /*  c -> control variable */
@@ -140,7 +140,7 @@ void create_server(){
         cout << "\t\t The client " << clients_map[client_code] << " : Has connected\n";
 
 		if (r == ERROR){
-			cerr << "error accepting";
+			cerr << "SERVER :: Error accepting";
 		}
 		if(pthread_create(&hilo[cont], NULL,  function, (void*) int_code)!= 0){
 			perror("There was an error creating the thread.");

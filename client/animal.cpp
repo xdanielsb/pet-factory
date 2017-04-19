@@ -40,12 +40,18 @@ struct animal{
 
 inline string to_string(animal a){
     string data= "";
-    string aa(a.name);
-    string bb(a.type);
-    string cc(a.breed);
-    data += "Name: " + aa +"\n";
-    data += "Type: " + bb +"\n";    
-    data += "Breed: " + cc +"\n";
+    string _name(a.name);
+    string _type(a.type);
+    string _breed(a.breed);
+    
+
+    data +=  _name +"\n";
+    data +=  _type +"\n";    
+    data +=  _breed +"\n";
+    data +=   a.genre +"\n";
+    data +=  to_string(a.age) +"\n";
+    data +=  to_string(a.height) +"\n";
+    data +=  to_string(a.weight) +"\n";
     return data;
 }
 
