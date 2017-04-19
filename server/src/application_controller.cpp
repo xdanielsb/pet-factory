@@ -1,6 +1,7 @@
 #include <sstream>
 #define SSTR( x ) static_cast< std::ostringstream & >( \
         ( std::ostringstream() << std::dec << x ) ).str()
+
 /*
  *  This menu is called in architecture client-server
  */
@@ -14,7 +15,7 @@ inline string options_main_menu(int opcion, int socketfd){
         bool res ;
         r = recv(socketfd, &a1, sizeof(a1), 0);
         cout << "\t\tServer: Data of the animal inserted \n";
-        show_animal(a1);
+        //show_animal(a1);
 
         //Need to receive an animal
         res = insert_animal(a1);

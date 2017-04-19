@@ -8,7 +8,7 @@
 #include <string>
 #include <unistd.h>
 #include <map>
-#define PORT 9999
+#define PORT 9990
 #define BACKLOG 8
 #define ERROR -1
 #define NUM_CLIENTS 3
@@ -81,7 +81,7 @@ void * function (void *ap){
 	    cout << "\n\n\t\tServer:Waiting for a request ... " << endl;
         while(request <= 0 || request >=6){
             r = recv(socketfd, &request, sizeof(request), 0);
-        //    cout << r;
+            cout << r;
         }
         cout << request <<endl;
         if(request == 5){
