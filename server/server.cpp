@@ -90,23 +90,21 @@ bool is_file_exist(const char *fileName){
  */
 void load_data(bool from_scratch){
     if(!from_scratch){
-            printf("\t Server: The data has  been read from disk\n");
-            data = read_file_hash(); //hash_table
-            long long total = 0;
+        printf("\t Server: The data has  been read from disk\n");
+        data = read_file_hash(); //hash_table
+        long long total = 0;
 
-            /* Count registers */
-            for(int i=0; i< size_hash_table; i++)
-                total += data[i].size();
+        /* Count registers */
+        for(int i=0; i< size_hash_table; i++)
+            total += data[i].size();
 
-            /* Pointer last register*/
-            LOC = total;
-            total --;
-            printf("\t Server: The number or registers that were readen from disk were: %lld\n",total);
+        /* Pointer last register*/
+        LOC = total;
+        total --;
+        printf("\t Server: The number or registers that were readen from disk were: %lld\n",total);
     }else{
-
-
-        //create_random_data();
-        //write_hash_table();
+        create_random_data();
+        write_hash_table();
     }
 }
 
@@ -225,11 +223,17 @@ int main(){
             printf("Deleting last animals\n");
             system("rm var/structures.bin");
          }
+         if(is_file_exist("var/hash_table")){
+             printf("Deleting last hash_table\n");
+             system("rm var/hash_table");
+          }
          printf("Creating file structures.bin\n");
-         ofstream outfile ("var/structures.bin");
+         ofstream outfile1 ("var/structures.bin");
+         printf("Creating file hash_table\n");
+         ofstream outfile2 ("var/hash_table");
     }else{
-        if(!is_file_exist("var/structures.bin")){
-            perror("User the file var/structures.bin does not exist.");
+        if(!is_file_exist("var/structures.bin") || !is_file_exist("var/hash_table")){
+            perror("User the file var/structures.bin or hash_table does not exist.");
             perror("You need to create random data if you wish continue");
             exit(0);
          }
