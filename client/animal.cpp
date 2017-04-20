@@ -16,6 +16,7 @@ struct animal{
     int32_t age;       //4 bytes
     int32_t height;    //4 bytes
     int32_t weight;    //4 bytes
+    char hist_clinic[100]; //Bad practice
 
 
     animal(){}
@@ -34,26 +35,27 @@ struct animal{
     }
 
     bool operator == (animal a) const {
-        return genre == a.genre;
+        return name == a.name;
     }
 };
 
 inline string to_string(animal &a){
     string data= "";
-
     string _name(a.name);
     string _type(a.type);
     string _breed(a.breed);
 
+
     data +=  _name +"\n";
     data +=  _type +"\n";
     data +=  _breed +"\n";
-    //data +=   a.genre +"\n";
-    //data +=  to_string(a.age) +"\n";
+    data +=   a.genre +"\n";
+    data +=  to_string(a.age) +"\n";
     data +=  to_string(a.height) +"\n";
     data +=  to_string(a.weight) +"\n";
     return data;
 }
+
 
 
 inline void show_animal(animal &a){

@@ -32,7 +32,8 @@ void main_menu(){
     printf("2. Show a register \n");
     printf("3. Delete  a register \n");
     printf("4. Search for a register \n");
-    printf("5. Salir \n");
+    printf("5. See  clinic history \n");
+    printf("6. Salir \n");
 }
 
 
@@ -82,18 +83,34 @@ void create_client(){
         main_menu();
         /* Read the option */
         scanf("%d", &option);
+        printf("Your option is : %d", option);
         /* Send the request to the server */
         res = send(clientfd, &option, sizeof(option), 0);
         /* Check if the all message was sent */
         if (res != sizeof(option))
             perror("CLIENT: The option have not been sent completely. \n");
         /* Mini selector */
-        if (option >= 5 || option <= 0){ flag=false;break;};
-        if (option == 2) show_animal(clientfd);
-        else if (option == 3) delete_animal(clientfd);
-        else if (option == 4) show_by_name(clientfd);
-        else if (option == 1) insert_animal(clientfd);
+        if (option >= 6 || option <= 0){ flag=false;break;};
+
+        if (option == 1){
+            insert_animal(clientfd);
+        }
+        else if (option == 2){
+            show_animal(clientfd);
+        }
+        else if (option == 3){
+            delete_animal(clientfd);
+        }
+        else if (option == 4){
+            show_by_name(clientfd);
+        }
+        else if (option == 5){
+            show_clinic_history(clientfd);
+        }
+
+        option =0;
     }
+    printf("Client : Closing the socketfd %d\n", clientfd);
     close(clientfd);
 }
 

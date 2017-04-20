@@ -107,26 +107,63 @@ void show_by_name( int clientfd){
 }
 
 
-void show_clinic_historic(){
+void show_clinic_history(int clientfd){
+
+    int res;
+    int number_register;
+    animal a1;
+    char yn;
+    printf("\n Show historic clinic register \n");
+    /* capturing the register to delete */
+    printf("# register = ");scanf(" %d", &number_register);
+    /* send the number of the register */
+    res = send(clientfd, &number_register, sizeof(number_register), 0);
+
+    /* receive the  'animal' */
+    res = recv(clientfd, &a1, sizeof(a1), 0);
+    printf("\nanimal received:\n");
+    cout<<to_string(a1)<<"\n";
+
     /* creating the file */
-    /*string cadena = "echo  \""+to_string(a1)+ "\" > hist.clinic ";
+    string hist = string(a1.hist_clinic);
+    string cadena = "echo  \""+ hist+ "\" > hist.clinic ";
     system(cadena.c_str());
-    system("gedit hist.clinic");*/
+    system("gedit hist.clinic");
 
 
-    /*cout << "do you wish to save the changes in the file (y)es (n)ot\n";
+   printf("Do you wish to save the changes in the file (y)es (n)ot\n");
 
     //now we are going to do the update function
-    cin >> opt;
-    if(opt == 'y' || opt == 'y'){
+    cin >> yn;
+    if(yn == 'y' || yn == 'y'){
         //update data
+        printf("\tUmm a bit tricky but I can do it.\n");
         ifstream infile("hist.clinic");
+        string concat ="";
         string line;
-        cout << "this is the animal that you want to save" << endl;
+
         while (getline(infile, line)){
-            cout << line << endl;
+            concat += line;
         }
-    }if(opt == 'n' || opt == 'n'){
-        //do nothing
-    }*/
+        //printf("\tThis is the hist_clinic that you want to save\n");
+        //cout<<(concat);
+
+        strcpy(a1.hist_clinic,concat.c_str());
+
+        //cout << a1.hist_clinic;
+        //Now update the register
+    }else if(yn == 'n' || yn == 'n'){
+        printf("\tYou save me a lot work, thanks =) \n");
+    }else{
+        printf("\tlol\n");
+    }
+
+    //send the animal
+    res = send(clientfd, &a1, sizeof(a1), 0);
+    if (res != sizeof(a1)){
+        printf("\nthe animal have not been sent completely. \n");
+    }else{
+        printf("\nthe animal has been sent. \n");
+    }
+
 }
