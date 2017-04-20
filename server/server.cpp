@@ -37,19 +37,21 @@ struct sigaction sigIntHandler;     /* Handler */
 int server_code;                    /* Server code */
 
 /*
- * HANDLER SIGNALS
+ * Handler signals
  */
-
 void my_handler_signals(int signal){
     printf("\n Server : Caught signal %d \n",signal);
     if (signal == CTRLC){
-        printf("Server : Closing the server \n");
-        close(server_code);
+
         printf("Close the connection with the clients\n");
         for (map<int,string>::iterator it=clients_map.begin(); it!=clients_map.end(); ++it){
-            printf("close connection %d\n", it->first);
+            printf("close connection client %d\n", it->first);
             close(it->first);
         }
+
+        printf("Server : Closing the server \n");
+        close(server_code);
+
         exit(0);
 
     }
@@ -91,7 +93,7 @@ void * hold_client (void *ap){
 
         printf("Client %d: send the option: %d", socketfd, option);
         /* This is in case of garbage close that connection */
-        if(option > 5 || option < 0) {
+        if(option > 5 || option <= 0) {
             printf("\nClose client %d \n", socketfd);
             close(socketfd);
             break;
@@ -99,6 +101,7 @@ void * hold_client (void *ap){
 
         if(option == 5) flag = false;
 	}
+    printf("\nClose client %d \n", socketfd);
 	close(socketfd);
 }
 
@@ -176,7 +179,7 @@ void create_server(){
 
 
 int main(){
-    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");
+/*    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");*/
     bool load_data_from_scratch = false;
     load_data(load_data_from_scratch );
     create_server();

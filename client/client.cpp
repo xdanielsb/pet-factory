@@ -23,6 +23,22 @@ struct sockaddr_in client;
 struct sigaction sigIntHandler; /*Handler*/
 bool flag = true;
 
+#include "client_controller.cpp"
+
+void main_menu(){
+    printf("Hello User, Welcome to Pet Factory\n");
+    printf("This are the options that we offer\n");
+    printf("1. Insert a register \n");
+    printf("2. Show a register \n");
+    printf("3. Delete  a register \n");
+    printf("4. Search for a register \n");
+    printf("5. Salir \n");
+}
+
+
+/*
+ * Handler signals
+ */
 void my_handler_signals(int signal){
     printf("\nClient: Caught signal %d \n",signal);
     if (signal == CTRLC){
@@ -34,7 +50,7 @@ void my_handler_signals(int signal){
 
 
 void create_client(){
-    int res, opcion;
+    int res, option;
 
     /* Events client*/
     sigIntHandler.sa_handler = my_handler_signals;
@@ -62,18 +78,25 @@ void create_client(){
 
 
     while(flag){
+        /* Display menu */
+        main_menu();
         /* Read the option */
-        scanf("%d", &opcion);
+        scanf("%d", &option);
+        if (option >= 5 || option <= 0){ flag=false;break;};
+        if (option == 2) show_animal(clientfd);
+        else if (option == 3) delete_animal(clientfd);
+        else if (option == 4) show_by_name(clientfd);
+        else if (option == 1) insert_animal(clientfd);
 
         /* Send the request to the server */
-        res = send(clientfd, &opcion, sizeof(opcion), 0);
+        res = send(clientfd, &option, sizeof(option), 0);
 
         /* Check if the all message was sent */
-        if (res != sizeof(opcion))
+        if (res != sizeof(option))
             printf("CLIENT: The option have not been sent completely. \n");
 
         /* Condition for exit */
-        if(opcion == 5) flag = false;
+
     }
     close(clientfd);
 }
