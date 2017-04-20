@@ -2,21 +2,28 @@ void insert_animal(int clientfd){
     int res;
     char  answer[100];
 
-    string _name, _type, _breed;
-    int32_t _height, _weight,  _age;
-    char _genre;
+    char name[32];
+    char type[32];
+    char breed[16];
+    char genre;
+    int32_t age;
+    int32_t height;
+    int32_t weight;
 
-    printf("\n Insert register \n");
-    printf("\n\t    name   = ");scanf("%s", &_name[0]);
-    printf("\n\t    type   = ");scanf("%s", &_type[0]);
-    printf("\n\t    breed  = ");scanf("%s", &_breed[0]);
-    printf("\n\t (f)emale   (m)ale\n");
-    printf("\n\t    genre  = ");scanf("%s", &_genre);
-    printf("\n\t    age    = ");scanf("%d", &_age);
-    printf("\n\t    height = ");scanf("%d", &_height);
-    printf("\n\t    weight = ");scanf("%d", &_weight);
+    cout << "\n INSERT REGISTER \n";
+    cout << " User we are going to ask you for some data, please ingress the data : "<<endl;
+    cout << "\n\tName   = "; cin >> name;
+    cout << "\n\ttype   = "; cin >> type;
+    cout << "\n\tbreed  = "; cin >> breed;
+    cout << "\n\tGenre if it is Female write a {F} but if it is Male  write  a {M}\n";
+    cout << "\n\tgenre  = "; cin >> genre;
+    cout << "\n\tage    = "; cin >> age;
+    cout << "\n\theight = "; cin >> height;
+    cout << "\n\tweight = "; cin >> weight;
 
-    animal a(_name, _type,_age, _breed, _height , _weight, _genre);
+    //Instance the animal
+    animal a(name, type, age, breed,height, weight, genre);  
+
     //animal a("zeus", "lion", 23, "warrior", 12, 34, 'm');
 
     //send the animal
@@ -86,9 +93,9 @@ void delete_animal(int clientfd){
     int res;
     char  answer[100];
     int number_register;
-    printf("\n delete register \n");
+    printf("\n Delete register \n");
     /* capturing the register to delete */
-    scanf(" number of the register  to delete = %d", &number_register);
+    printf("# register = ");scanf(" %d", &number_register);
     /* send the number of the register */
     res = send(clientfd, &number_register, sizeof(number_register), 0);
 
@@ -104,8 +111,8 @@ void show_by_name( int clientfd){
     string name;
     animal a1;
 
-    printf("\n show animals by name\n");
-    scanf(" name of the register = %s", &name[0]);
+    printf("\n Show animals by name\n");
+    scanf(" Name = %s", &name[0]);
 
     /* transform string to vector*/
     for (int i= 0; i<name.size(); i++)
