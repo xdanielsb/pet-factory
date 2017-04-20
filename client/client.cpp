@@ -82,21 +82,17 @@ void create_client(){
         main_menu();
         /* Read the option */
         scanf("%d", &option);
+        /* Send the request to the server */
+        res = send(clientfd, &option, sizeof(option), 0);
+        /* Check if the all message was sent */
+        if (res != sizeof(option))
+            perror("CLIENT: The option have not been sent completely. \n");
+        /* Mini selector */
         if (option >= 5 || option <= 0){ flag=false;break;};
         if (option == 2) show_animal(clientfd);
         else if (option == 3) delete_animal(clientfd);
         else if (option == 4) show_by_name(clientfd);
         else if (option == 1) insert_animal(clientfd);
-
-        /* Send the request to the server */
-        res = send(clientfd, &option, sizeof(option), 0);
-
-        /* Check if the all message was sent */
-        if (res != sizeof(option))
-            printf("CLIENT: The option have not been sent completely. \n");
-
-        /* Condition for exit */
-
     }
     close(clientfd);
 }

@@ -21,10 +21,10 @@ inline string options_main_menu(int opcion, int socketfd){
         res = insert_animal(a1);
         if (res){
             //Buffer that storage the request
-
             string msj = "The animal has inserted succesffuly.";
             for (int i= 0; i<msj.size(); i++)
                 buffer.push_back(msj[i]);
+            
             //Send answer to the client
             r = send(socketfd, buffer.data(), buffer.size(), 0);
         }
@@ -32,11 +32,9 @@ inline string options_main_menu(int opcion, int socketfd){
     else if(opcion == 2){ //DISPLAY AN ANIMAL
         int number_animals = total_number_animals();
         int number_register;
-        string msj = SSTR( number_animals );
-        for (int i= 0; i<msj.size(); i++)
-            buffer.push_back(msj[i]);
+
         //Send  the number of animals to the client
-        r = send(socketfd, buffer.data(), buffer.size(), 0);
+        r = send(socketfd, &number_animals, sizeof(number_animals), 0);
 
         //receive the number of register that the user want to display
         r = recv(socketfd, &number_register, sizeof(number_register), 0);

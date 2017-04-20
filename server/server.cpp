@@ -36,6 +36,27 @@ int res;                            /* response of the operations */
 struct sigaction sigIntHandler;     /* Handler */
 int server_code;                    /* Server code */
 
+void check_user_option_main_menu(int request, int socketfd ){
+    string cadena = "";
+
+    if(request == 1){           //Insert a pet
+        cadena += " INSERT ";
+        options_main_menu(1, socketfd);
+    }else if(request == 2){     //Show a pet
+        cadena += " SHOW ";
+        options_main_menu(2, socketfd);
+    } else if(request == 3){    //Delete a pet
+        cadena += " DELETE ";
+        options_main_menu(3, socketfd);
+    }else if(request == 4){ //Search for a register
+        string aux = options_main_menu(4, socketfd);
+        cadena +=" SEARCH "+ aux +" ";
+    }
+
+    cadena ="date \"+%H:%M:%S %d/%m/%y\" >>log.log && echo \" "+cadena+" " + clients_map[socketfd]+" \" >> log.log";
+
+}
+
 /*
  * Handler signals
  */
@@ -93,13 +114,14 @@ void * hold_client (void *ap){
 
         printf("Client %d: send the option: %d", socketfd, option);
         /* This is in case of garbage close that connection */
-        if(option > 5 || option <= 0) {
+        if(option >= 5 || option <= 0) {
             printf("\nClose client %d \n", socketfd);
             close(socketfd);
+            flag = false;
             break;
+        }else{
+            check_user_option_main_menu(option, socketfd);
         }
-
-        if(option == 5) flag = false;
 	}
     printf("\nClose client %d \n", socketfd);
 	close(socketfd);
@@ -179,7 +201,7 @@ void create_server(){
 
 
 int main(){
-/*    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");*/
+    /*    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");*/
     bool load_data_from_scratch = false;
     load_data(load_data_from_scratch );
     create_server();
