@@ -51,6 +51,9 @@ void check_user_option_main_menu(int request, int socketfd ){
     }else if(request == 4){ //Search for a register
         string aux = options_main_menu(4, socketfd);
         cadena +=" SEARCH "+ aux +" ";
+    }else if(request == 5){     //Show a pet
+        cadena += " HISTORIC_CLINIC ";
+        options_main_menu(5, socketfd);
     }
 
     cadena ="date \"+%H:%M:%S %d/%m/%y\" >>log.log && echo \" "+cadena+" " + clients_map[socketfd]+" \" >> log.log";
@@ -72,7 +75,8 @@ void my_handler_signals(int signal){
 
         printf("Server : Closing the server \n");
         close(server_code);
-
+        //WRITE THE HASH TABLE IN ANY CASE
+        write_hash_table();
         exit(0);
 
     }
@@ -121,7 +125,7 @@ void * hold_client (void *ap){
 
         printf("\tClient %d: send the option: %d \n", socketfd, option);
         /* This is in case of garbage close that connection */
-        if(option >= 5 || option <= 0) {
+        if(option >= 6 || option <= 0) {
             printf("\nClose client %d \n", socketfd);
             close(socketfd);
             flag = false;
@@ -217,7 +221,7 @@ void create_server(){
 int main(){
     /*    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");*/
 
-    bool load_data_from_scratch = true;
+    bool load_data_from_scratch = false;
     if(load_data_from_scratch){
         if(is_file_exist("var/structures.bin")){
             printf("Deleting last animals\n");

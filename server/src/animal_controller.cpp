@@ -20,7 +20,7 @@ inline int write_animal(animal a){
 /*
  * Write animal in disk but in custom location
  */
-inline int write_animal(animal a, int pos){
+inline int write_animal(animal &a, int pos){
     write_file(a, pos);
     return pos;
 }

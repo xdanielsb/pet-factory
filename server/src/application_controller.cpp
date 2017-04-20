@@ -81,8 +81,32 @@ inline string options_main_menu(int opcion, int socketfd){
         return name;
 
     }else if(opcion == 5){
-        cout << "\t\tServer: The hash table is being written in disk.\n";
-        write_hash_table();
+        int number_register;
+        //receive the number of register that the user want to display
+        r = recv(socketfd, &number_register, sizeof(number_register), 0);
+
+        animal a1  = show_animal(number_register, 0);
+        r = send(socketfd, &a1, sizeof(a1), 0);
+        //cout << "Animal to send \n" << to_string(a1) <<"\n";
+        if (r != sizeof(a1)){
+            //Re send;
+            cout << "\t\tServer: The message have not been sent completely. \n";
+        }else{
+            cout << "\t\tServer: The animal has been sent. \n";
+        }
+
+        //Now overwrite the register
+        r = recv(socketfd, &a1, sizeof(a1), 0);
+        if (r != sizeof(a1)){
+            //Re send
+            cout << "\t\tServer: The message have not been receive completely. \n";
+        }else{
+            cout << "\t\tServer: The animal has been receive. \n";
+        }
+
+        int pos  = write_animal(a1, number_register);
+        printf("Animal written in the pos %d \n", pos);
+
     }
     return "";
 }
