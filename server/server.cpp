@@ -109,10 +109,10 @@ void * hold_client (void *ap){
     int socketfd =  *(int*)ap;
 
 	while(flag){
-	    cout << "\tServer: Waiting for a request ... \n";
+	    printf("\tServer: Waiting for a request ... \n");
         res = recv(socketfd, &option, sizeof(option), 0);
 
-        printf("Client %d: send the option: %d", socketfd, option);
+        printf("\tClient %d: send the option: %d \n", socketfd, option);
         /* This is in case of garbage close that connection */
         if(option >= 5 || option <= 0) {
             printf("\nClose client %d \n", socketfd);
@@ -150,6 +150,7 @@ void create_server(){
 	struct sockaddr_in  client;
 	size_t size_cli;
     int cont_client = 0;
+    int reuse =1;
 
     /*Check the socket initalization */
 	if(server_code == ERROR) perror("SERVER :: Error creating the socket\n");
@@ -161,6 +162,12 @@ void create_server(){
 	server.sin_port = htons(PORT);
 	server.sin_addr.s_addr = INADDR_ANY;
 	bzero(server.sin_zero, 8);
+
+    /* REUSE address in case of be busy*/
+    if (setsockopt(server_code, SOL_SOCKET, SO_REUSEADDR, (const char*)&reuse, sizeof(reuse)) < 0) {
+          perror("setsockopt") ;
+          exit(-1) ;
+      }
 
     /* Binding */
 	res = bind(server_code, (struct sockaddr *)&server, sizeof(sockaddr));

@@ -1,7 +1,3 @@
-#include <sstream>
-#define SSTR( x ) static_cast< std::ostringstream & >( \
-        ( std::ostringstream() << std::dec << x ) ).str()
-
 /*
  *  This menu is called in architecture client-server
  */
@@ -14,7 +10,7 @@ inline string options_main_menu(int opcion, int socketfd){
         animal a1;
         bool res ;
         r = recv(socketfd, &a1, sizeof(a1), 0);
-        cout << "\t\tServer: Data of the animal inserted \n";
+        printf("\tServer: Data of the animal inserted \n");
         //show_animal(a1);
 
         //Need to receive an animal
@@ -24,7 +20,7 @@ inline string options_main_menu(int opcion, int socketfd){
             string msj = "The animal has inserted succesffuly.";
             for (int i= 0; i<msj.size(); i++)
                 buffer.push_back(msj[i]);
-            
+
             //Send answer to the client
             r = send(socketfd, buffer.data(), buffer.size(), 0);
         }
@@ -41,7 +37,7 @@ inline string options_main_menu(int opcion, int socketfd){
 
         animal a1  = show_animal(number_register, 0);
         r = send(socketfd, &a1, sizeof(a1), 0);
-        cout << "Animal to send \n" << to_string(a1) <<"\n";
+        //cout << "Animal to send \n" << to_string(a1) <<"\n";
         if (r != sizeof(a1)){
             //Re send;
             cout << "\t\tServer: The message have not been sent completely. \n";
@@ -57,15 +53,10 @@ inline string options_main_menu(int opcion, int socketfd){
         string msj;
         bool res = delete_animal(number_register);
 
-        if (res){
-            msj = "The animal has been deleted succesffuly.";
-        }else{
-            msj = "The animal has not been deleted succesffuly.";
-        }
+        msj =  (res) ? "The animal has been deleted succesffuly." : "The animal has not been deleted succesffuly.";
 
         for (int i= 0; i<msj.size(); i++)
             buffer.push_back(msj[i]);
-
         //Send answer to the client
         r = send(socketfd, buffer.data(), buffer.size(), 0);
     }
