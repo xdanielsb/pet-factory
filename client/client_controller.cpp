@@ -22,7 +22,7 @@ void insert_animal(int clientfd){
     cout << "\n\tweight = "; cin >> weight;
 
     //Instance the animal
-    animal a(name, type, age, breed,height, weight, genre);  
+    animal a(name, type, age, breed,height, weight, genre);
 
     //animal a("zeus", "lion", 23, "warrior", 12, 34, 'm');
 
@@ -65,27 +65,6 @@ void show_animal(int clientfd){
     printf("\nanimal received:\n");
     cout << to_string(a1) << endl;
 
-    /* creating the file */
-    /*string cadena = "echo  \""+to_string(a1)+ "\" > hist.clinic ";
-    system(cadena.c_str());
-    system("gedit hist.clinic");*/
-
-
-    /*cout << "do you wish to save the changes in the file (y)es (n)ot\n";
-
-    //now we are going to do the update function
-    cin >> opt;
-    if(opt == 'y' || opt == 'y'){
-        //update data
-        ifstream infile("hist.clinic");
-        string line;
-        cout << "this is the animal that you want to save" << endl;
-        while (getline(infile, line)){
-            cout << line << endl;
-        }
-    }if(opt == 'n' || opt == 'n'){
-        //do nothing
-    }*/
 }
 
 
@@ -125,4 +104,29 @@ void show_by_name( int clientfd){
     res = recv(clientfd, &a1, sizeof(a1), 0);
     /* show the animal */
     show_animal(a1);
+}
+
+
+void show_clinic_historic(){
+    /* creating the file */
+    /*string cadena = "echo  \""+to_string(a1)+ "\" > hist.clinic ";
+    system(cadena.c_str());
+    system("gedit hist.clinic");*/
+
+
+    /*cout << "do you wish to save the changes in the file (y)es (n)ot\n";
+
+    //now we are going to do the update function
+    cin >> opt;
+    if(opt == 'y' || opt == 'y'){
+        //update data
+        ifstream infile("hist.clinic");
+        string line;
+        cout << "this is the animal that you want to save" << endl;
+        while (getline(infile, line)){
+            cout << line << endl;
+        }
+    }if(opt == 'n' || opt == 'n'){
+        //do nothing
+    }*/
 }

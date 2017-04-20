@@ -39,7 +39,7 @@ inline bool insert_animal(animal &a1){
     //Save location in hash table
     data[hash].push_back(location_disk);
 
-    cout << "The register has been inserted succesfully" << endl;
+    cout << "\tThe register has been inserted succesfully" << endl;
 
 
     //Hahah lol,

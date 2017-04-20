@@ -16,6 +16,7 @@ struct animal{
     int32_t age;       //4 bytes
     int32_t height;    //4 bytes
     int32_t weight;    //4 bytes
+    char hist_clinic[100]; //Bad practice
 
 
     animal(){}
@@ -34,7 +35,7 @@ struct animal{
     }
 
     bool operator == (animal a) const {
-        return genre == a.genre;
+        return name == a.name;
     }
 };
 

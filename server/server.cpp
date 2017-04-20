@@ -77,27 +77,36 @@ void my_handler_signals(int signal){
 
     }
 }
+/*
+ *
+ */
+bool is_file_exist(const char *fileName){
+    ifstream infile(fileName);
+    return infile.good();
+}
 
 /*
  * This function load or create the random data
  */
 void load_data(bool from_scratch){
     if(!from_scratch){
-        printf("\t Server: The data has  been read from disk\n");
-        data = read_file_hash(); //hash_table
-        long long total = 0;
+            printf("\t Server: The data has  been read from disk\n");
+            data = read_file_hash(); //hash_table
+            long long total = 0;
 
-        /* Count registers */
-        for(int i=0; i< size_hash_table; i++)
-            total += data[i].size();
+            /* Count registers */
+            for(int i=0; i< size_hash_table; i++)
+                total += data[i].size();
 
-        /* Pointer last register*/
-        LOC = total;
-        total --;
-        printf("\t Server: The number or registers that were readen from disk were: %lld\n",total);
+            /* Pointer last register*/
+            LOC = total;
+            total --;
+            printf("\t Server: The number or registers that were readen from disk were: %lld\n",total);
     }else{
-        create_random_data();
-        write_hash_table();
+
+
+        //create_random_data();
+        //write_hash_table();
     }
 }
 
@@ -209,7 +218,22 @@ void create_server(){
 
 int main(){
     /*    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");*/
-    bool load_data_from_scratch = false;
+
+    bool load_data_from_scratch = true;
+    if(load_data_from_scratch){
+        if(is_file_exist("var/structures.bin")){
+            printf("Deleting last animals\n");
+            system("rm var/structures.bin");
+         }
+         printf("Creating file structures.bin\n");
+         ofstream outfile ("var/structures.bin");
+    }else{
+        if(!is_file_exist("var/structures.bin")){
+            perror("User the file var/structures.bin does not exist.");
+            perror("You need to create random data if you wish continue");
+            exit(0);
+         }
+     }
     load_data(load_data_from_scratch );
     create_server();
 	return 0;
