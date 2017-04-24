@@ -107,7 +107,7 @@ void create_client(){
         else if (option == 5){
             show_clinic_history(clientfd);
         }
-
+        //Something weird is ocurring here
         option =0;
     }
     printf("Client : Closing the socketfd %d\n", clientfd);
