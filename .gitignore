@@ -38,3 +38,6 @@
 #Folders
 *.bin
 *.txt
+
+#Table
+server/var/hash_table

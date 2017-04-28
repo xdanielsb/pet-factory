@@ -221,7 +221,7 @@ void create_server(){
 int main(){
     /*    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");*/
 
-    bool load_data_from_scratch = false;
+    bool load_data_from_scratch = true;
     if(load_data_from_scratch){
         if(is_file_exist("var/structures.bin")){
             printf("Deleting last animals\n");
