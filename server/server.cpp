@@ -57,7 +57,7 @@ void check_user_option_main_menu(int request, int socketfd ){
     }
 
     cadena ="date \"+%H:%M:%S %d/%m/%y\" >>log.log && echo \" "+cadena+" " + clients_map[socketfd]+" \" >> log.log";
-
+    system(cadena.c_str());
 }
 
 /*
