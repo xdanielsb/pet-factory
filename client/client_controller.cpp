@@ -90,14 +90,14 @@ void show_by_name( int clientfd){
     string name;
     animal a1;
 
-    printf("\n Show animals by name\n");
-    scanf(" Name = %s", &name[0]);
+    printf("\n Show animals by name\n Name = ");
+    cin >> name;
 
     /* transform string to vector*/
     for (int i= 0; i<name.size(); i++)
         buffer.push_back(name[i]);
 
-    /* send answer to the client */
+    /* send the name to the server */
     res = send(clientfd, buffer.data(), buffer.size(), 0);
 
     /* receive the answer of the user  'animal' */

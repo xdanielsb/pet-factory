@@ -119,10 +119,6 @@ inline animal show_animal_r(string name){
     vi values = get_locations(hash);
     cout << endl <<"\t\tServer: Number of positions in disk with the same hash: " << values.size() << endl;
 
-    show_row_table(hash);
-
-    cout << endl << "\t\tAnimals that has the same hash :" << endl;
-
     for (int i= 0; i< values.size(); i++){
 
         animal aux = read_animal(values[i]);
@@ -141,8 +137,10 @@ inline animal show_animal_r(string name){
     }
 
     if(result.size() > 0){
+        cout << "\nThe total matchings was "<< result.size()<<endl;
         return result[0];
     }else{
+        cout << "\nThere was not exact matchings with the name\n";
         animal aux;
         return aux;
     }
