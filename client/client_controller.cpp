@@ -62,9 +62,9 @@ void show_animal(int clientfd){
 
     /* receive the  'animal' */
     res = recv(clientfd, &a1, sizeof(a1), 0);
-    printf("\nanimal received:\n");
-    cout << to_string(a1) << endl;
-
+    printf("\n\tAnimal received:\n");
+    //cout << to_string(a1) << endl;
+    show_animal(a1);
 }
 
 
@@ -103,7 +103,13 @@ void show_by_name( int clientfd){
     /* receive the answer of the user  'animal' */
     res = recv(clientfd, &a1, sizeof(a1), 0);
     /* show the animal */
-    show_animal(a1);
+    string aux_name(a1.name);
+    if (aux_name.compare(name) == 0){
+        show_animal(a1);
+    }else {
+        cout << "There was not matching with the name:  " << name << ".\n";
+    }
+
 }
 
 
@@ -121,9 +127,9 @@ void show_clinic_history(int clientfd){
 
     /* receive the  'animal' */
     res = recv(clientfd, &a1, sizeof(a1), 0);
-    printf("\nanimal received:\n");
-    cout<<to_string(a1)<<"\n";
-
+    printf("\n\tAnimal received:\n");
+    //cout<<to_string(a1)<<"\n";
+    show_animal(a1);
     /* creating the file */
     string hist = string(a1.hist_clinic);
     string cadena = "echo  \""+ hist+ "\" > hist.clinic ";

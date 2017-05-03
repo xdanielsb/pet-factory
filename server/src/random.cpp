@@ -1,5 +1,5 @@
-#define NUM_DOGS 100000000  //Number of dogs that is going to be used in the project
-
+//Numuber pets created in the disk
+static unsigned long long NUM_RANDOM_REGISTERS = 10000000; /* 10000000*/
 /*
  * Create random int numbers
  */
@@ -13,7 +13,6 @@ int randInt(int max, int min){
 double randDouble(double max, double min){
     return drand48() * ( max - min ) + min;
 }
-
 
 /*
  * Function for creating random animals
@@ -40,11 +39,8 @@ inline  animal create_random_animal(char name[32], const int len) {
     for (int i = 0; i < len; ++i) {
         name[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
     }
+    
     name[len] = 0; //Finish string
-
-    string aaa(name);
-
-
     animal a1(name, type, age, breed,height, weight, genre);
 
     //Take care the order of importations that you do in your project
@@ -56,7 +52,7 @@ inline  void create_random_data(){
     srand (time(NULL));  //Necesary when I am going to generate random numbers
     int len = 7;         //Len of the names
 
-    for (ll i = 0; i<= NUM_DOGS; i++){
+    for (ll i = 0; i<= NUM_RANDOM_REGISTERS; i++){
         char *s = new char[len];
         //Get random name
         animal aux =  create_random_animal(s, len);
@@ -66,6 +62,4 @@ inline  void create_random_data(){
         delete s;
     }
 
-
-    //show_hash_table();
 }
