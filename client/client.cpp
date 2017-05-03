@@ -27,16 +27,15 @@ bool flag = true;
 #include "client_controller.cpp"
 
 void main_menu(){
-    printf("Hello User, Welcome to Pet Factory\n");
-    printf("This are the options that we offer\n");
-    printf("1. Insert a register \n");
-    printf("2. Show a register \n");
-    printf("3. Delete  a register \n");
-    printf("4. Search for a register \n");
-    printf("5. See  clinic history \n");
-    printf("6. Salir \n");
+    printf("\tHello User, Welcome to Pet Factory\n");
+    printf("\tThis are the options that we offer:\n");
+    printf("\t\t1. Insert a register \n");
+    printf("\t\t2. Show a register \n");
+    printf("\t\t3. Delete  a register \n");
+    printf("\t\t4. Search for a register \n");
+    printf("\t\t5. See  clinic history \n");
+    printf("\t\t6. Salir \n");
 }
-
 
 /*
  * Handler signals
@@ -85,7 +84,8 @@ void create_client(){
         /* Display menu */
         main_menu();
         /* Read the option */
-        scanf("%d", &option);
+        cout << UNDL(BOLD(FCYN("\tOption = ")));
+        cin >> option;
         printf("Your option is : %d", option);
         /* Send the request to the server */
         res = send(clientfd, &option, sizeof(option), 0);

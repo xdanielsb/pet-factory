@@ -95,7 +95,7 @@ bool is_file_exist(const char *fileName){
  */
 void load_data(bool from_scratch){
     if(!from_scratch){
-        printf(FGRN("\t Server: The data has  been read from disk\n"));
+        printf(BOLD(FGRN("\t Server: The data has  been read from disk\n")));
         data = read_file_hash(); //hash_table
         long long total = 0;
 
@@ -106,7 +106,7 @@ void load_data(bool from_scratch){
         /* Pointer last register*/
         LOC = total;
         total --;
-        printf(FGRN("\t Server: The number or registers that were readen from disk were: %lld\n"),total);
+        printf(BOLD(FGRN("\t Server: The number or registers that were readen from disk were: %lld\n")),total);
     }else{
         create_random_data();
         write_hash_table();
@@ -217,6 +217,20 @@ void create_server(){
 	close(server_code);
 }
 
+void delete_and_create_files(){
+     if(is_file_exist("var/structures.bin")){
+        printf(FBLU("Deleting last animals\n"));
+        system("rm var/structures.bin");
+     }
+     if(is_file_exist("var/hash_table")){
+         printf(FBLU("Deleting last hash_table\n"));
+         system("rm var/hash_table");
+      }
+     printf(FGRN("Creating file structures.bin\n"));
+     ofstream outfile1 ("var/structures.bin");
+     printf(FGRN("Creating file hash_table\n"));
+     ofstream outfile2 ("var/hash_table");
+}
 
 
 int main(){
@@ -224,22 +238,11 @@ int main(){
 
     bool load_data_from_scratch = false;
     if(load_data_from_scratch){
-        if(is_file_exist("var/structures.bin")){
-            printf("Deleting last animals\n");
-            system("rm var/structures.bin");
-         }
-         if(is_file_exist("var/hash_table")){
-             printf("Deleting last hash_table\n");
-             system("rm var/hash_table");
-          }
-         printf("Creating file structures.bin\n");
-         ofstream outfile1 ("var/structures.bin");
-         printf("Creating file hash_table\n");
-         ofstream outfile2 ("var/hash_table");
+         delete_and_create_files();
     }else{
         if(!is_file_exist("var/structures.bin") || !is_file_exist("var/hash_table")){
-            perror("User the file var/structures.bin or hash_table does not exist.");
-            perror("You need to create random data if you wish continue");
+            perror(BOLD(FWHT("User the data does not exist.")));
+            perror(BOLD(FWHT("For that reason we are going te create random data for you. ;)")));
             exit(0);
          }
      }

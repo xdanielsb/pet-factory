@@ -12,14 +12,14 @@ void insert_animal(int clientfd){
 
     cout << BOLD(FWHT("\n INSERT REGISTER \n"));
     cout << FWHT(" User we are going to ask you for some data, please ingress the data : ")<<endl;
-    cout << "\n\tName   = "; cin >> name;
-    cout << "\n\ttype   = "; cin >> type;
-    cout << "\n\tbreed  = "; cin >> breed;
-    cout << "\n\tGenre if it is Female write a {F} but if it is Male  write  a {M}\n";
-    cout << "\n\tgenre  = "; cin >> genre;
-    cout << "\n\tage    = "; cin >> age;
-    cout << "\n\theight = "; cin >> height;
-    cout << "\n\tweight = "; cin >> weight;
+    cout << UNDL(BOLD(FCYN("\n\tName   = "))); cin >> name;
+    cout << UNDL(BOLD(FCYN("\n\ttype   = "))); cin >> type;
+    cout << UNDL(BOLD(FCYN("\n\tbreed  = "))); cin >> breed;
+    cout << UNDL(BOLD(FWHT("\n\tGenre if it is Female write a {F} but if it is Male  write  a {M}\n")));
+    cout << UNDL(BOLD(FCYN("\n\tgenre  = "))); cin >> genre;
+    cout << UNDL(BOLD(FCYN("\n\tage    = "))); cin >> age;
+    cout << UNDL(BOLD(FCYN("\n\theight = "))); cin >> height;
+    cout << UNDL(BOLD(FCYN("\n\tweight = "))); cin >> weight;
 
     //Instance the animal
     animal a(name, type, age, breed,height, weight, genre);
@@ -55,7 +55,7 @@ void show_animal(int clientfd){
 
     /* capturing the number of register to query*/
     printf(FGRN("\n Total number of registers: %d\n"), number);
-    printf("# Register= ");scanf(" %d", &number_register);
+    printf(UNDL(BOLD(FCYN("# Register= "))));scanf(" %d", &number_register);
 
     /* send the register to query */
     res = send(clientfd, &number_register, sizeof(number_register), 0);
@@ -74,7 +74,7 @@ void delete_animal(int clientfd){
     int number_register;
     printf(BOLD(FWHT("\n Delete register \n")));
     /* capturing the register to delete */
-    printf("# register = ");scanf(" %d", &number_register);
+    printf(UNDL(BOLD(FCYN("# register = "))));scanf(" %d", &number_register);
     /* send the number of the register */
     res = send(clientfd, &number_register, sizeof(number_register), 0);
 
@@ -121,7 +121,7 @@ void show_clinic_history(int clientfd){
     char yn;
     printf(BOLD(FWHT("\n Show historic clinic register \n")));
     /* capturing the register to delete */
-    printf("# register = ");scanf(" %d", &number_register);
+    printf(UNDL(BOLD(FCYN("# register = "))));scanf(" %d", &number_register);
     /* send the number of the register */
     res = send(clientfd, &number_register, sizeof(number_register), 0);
 
@@ -137,7 +137,7 @@ void show_clinic_history(int clientfd){
     system("gedit hist.clinic");
 
 
-   printf("Do you wish to save the changes in the file (y)es (n)ot\n");
+   printf(UNDL(BOLD(FCYN("Do you wish to save the changes in the file (y)es (n)ot\n"))));
 
     //now we are going to do the update function
     cin >> yn;
