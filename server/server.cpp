@@ -22,6 +22,7 @@ using namespace std;
 #include "src/animal.cpp"
 #include "src/hash.cpp"
 #include "src/file_hash.cpp"
+#include "src/colours.h"
 
 //-----Dependencies
 #include "src/hash_table.cpp"
@@ -67,13 +68,13 @@ void my_handler_signals(int signal){
     printf("\n Server : Caught signal %d \n",signal);
     if (signal == CTRLC){
 
-        printf("Close the connection with the clients\n");
+        printf(FWHT("Close the connection with the clients\n"));
         for (map<int,string>::iterator it=clients_map.begin(); it!=clients_map.end(); ++it){
-            printf("close connection client %d\n", it->first);
+            printf(FYEL("close connection client %d\n"), it->first);
             close(it->first);
         }
 
-        printf("Server : Closing the server \n");
+        printf(FRED("Server : Closing the server \n"));
         close(server_code);
         //WRITE THE HASH TABLE IN ANY CASE
         write_hash_table();
@@ -94,7 +95,7 @@ bool is_file_exist(const char *fileName){
  */
 void load_data(bool from_scratch){
     if(!from_scratch){
-        printf("\t Server: The data has  been read from disk\n");
+        printf(FGRN("\t Server: The data has  been read from disk\n"));
         data = read_file_hash(); //hash_table
         long long total = 0;
 
@@ -105,7 +106,7 @@ void load_data(bool from_scratch){
         /* Pointer last register*/
         LOC = total;
         total --;
-        printf("\t Server: The number or registers that were readen from disk were: %lld\n",total);
+        printf(FGRN("\t Server: The number or registers that were readen from disk were: %lld\n"),total);
     }else{
         create_random_data();
         write_hash_table();
@@ -120,13 +121,13 @@ void * hold_client (void *ap){
     int socketfd =  *(int*)ap;
 
 	while(flag){
-	    printf("\tServer: Waiting for a request ... \n");
+	    printf(FWHT("\tServer: Waiting for a request ... \n"));
         res = recv(socketfd, &option, sizeof(option), 0);
 
-        printf("\tClient %d: send the option: %d \n", socketfd, option);
+        printf(FBLU("\tClient %d: send the option: %d \n"), socketfd, option);
         /* This is in case of garbage close that connection */
         if(option >= 6 || option <= 0) {
-            printf("\nClose client %d \n", socketfd);
+            printf(FYEL("\nClose client %d \n"), socketfd);
             close(socketfd);
             flag = false;
             break;
@@ -134,7 +135,7 @@ void * hold_client (void *ap){
             check_user_option_main_menu(option, socketfd);
         }
 	}
-    printf("\nClose client %d \n", socketfd);
+    printf(FYEL("\nClose client %d \n"), socketfd);
 	close(socketfd);
 }
 
@@ -183,12 +184,12 @@ void create_server(){
     /* Binding */
 	res = bind(server_code, (struct sockaddr *)&server, sizeof(sockaddr));
 	if (res == ERROR){
-        perror("SERVER :: Error in binding\n");
+        perror(FRED("SERVER :: Error in binding\n"));
         close(server_code);
     }
     /* Listening */
 	res = listen(server_code, BACKLOG);
-	if (res == ERROR) perror("SERVER :: Error in listening\n");
+	if (res == ERROR) perror(FRED("SERVER :: Error in listening\n"));
 
 
 	printf("\n SERVER:: Waiting for a client...\n");
@@ -204,12 +205,12 @@ void create_server(){
 
         //Save the ip of the client of a map
         clients_map[client_code] = inet_ntoa(client.sin_addr);
-        cout << " The client " << clients_map[client_code] << " : Has connected\n";
+        cout << FGRN(" The client ") << clients_map[client_code] << " : Has connected\n";
 
-		if (res == ERROR) cerr << "SERVER :: Error accepting";
+		if (res == ERROR) cerr << FRED("SERVER :: Error accepting");
 
 		if(pthread_create(&hilo[cont_client++], NULL,  hold_client, (void*) &client_code)!= 0){
-			perror("There was an error creating the thread.");
+			perror(FRED("There was an error creating the thread."));
 		}
 	}
 

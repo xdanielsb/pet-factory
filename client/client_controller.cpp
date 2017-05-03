@@ -10,8 +10,8 @@ void insert_animal(int clientfd){
     int32_t height;
     int32_t weight;
 
-    cout << "\n INSERT REGISTER \n";
-    cout << " User we are going to ask you for some data, please ingress the data : "<<endl;
+    cout << BOLD(FWHT("\n INSERT REGISTER \n"));
+    cout << FWHT(" User we are going to ask you for some data, please ingress the data : ")<<endl;
     cout << "\n\tName   = "; cin >> name;
     cout << "\n\ttype   = "; cin >> type;
     cout << "\n\tbreed  = "; cin >> breed;
@@ -36,7 +36,7 @@ void insert_animal(int clientfd){
 
     //now receive the answer of the server about the operation
     res = recv(clientfd, answer, 100, 0);
-    printf("\nServer response: %s\n", answer);
+    printf(FGRN("\nServer response: %s\n"), answer);
 
 }
 
@@ -49,12 +49,12 @@ void show_animal(int clientfd){
     char opt;
     int number;
 
-    printf("\n Show register \n");
+    printf(BOLD(FWHT("\n Show register \n")));
     /* receive the number of registers avaliable in the database */
     res = recv(clientfd, &number, sizeof(number), 0);
 
     /* capturing the number of register to query*/
-    printf("\n Total number of registers: %d\n", number);
+    printf(FGRN("\n Total number of registers: %d\n"), number);
     printf("# Register= ");scanf(" %d", &number_register);
 
     /* send the register to query */
@@ -72,7 +72,7 @@ void delete_animal(int clientfd){
     int res;
     char  answer[100];
     int number_register;
-    printf("\n Delete register \n");
+    printf(BOLD(FWHT("\n Delete register \n")));
     /* capturing the register to delete */
     printf("# register = ");scanf(" %d", &number_register);
     /* send the number of the register */
@@ -80,7 +80,7 @@ void delete_animal(int clientfd){
 
     /*  receive the answer of the server about the operation */
     res = recv(clientfd, answer, 100, 0);
-    printf("\nserver response: %s",answer);
+    printf(FGRN("\nserver response: %s"),answer);
 }
 
 
@@ -90,7 +90,7 @@ void show_by_name( int clientfd){
     string name;
     animal a1;
 
-    printf("\n Show animals by name\n Name = ");
+    printf(BOLD(FWHT("\n Show animals by name\n Name = ")));
     cin >> name;
 
     /* transform string to vector*/
@@ -107,7 +107,7 @@ void show_by_name( int clientfd){
     if (aux_name.compare(name) == 0){
         show_animal(a1);
     }else {
-        cout << "There was not matching with the name:  " << name << ".\n";
+        cout << FGRN("There was not matching with the name:  ") << name << ".\n";
     }
 
 }
@@ -119,7 +119,7 @@ void show_clinic_history(int clientfd){
     int number_register;
     animal a1;
     char yn;
-    printf("\n Show historic clinic register \n");
+    printf(BOLD(FWHT("\n Show historic clinic register \n")));
     /* capturing the register to delete */
     printf("# register = ");scanf(" %d", &number_register);
     /* send the number of the register */

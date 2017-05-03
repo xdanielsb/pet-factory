@@ -5,6 +5,7 @@
 #include <netinet/in.h>     /* for inet_addr */
 #include <arpa/inet.h>      /* for inet_addr */
 #include <unistd.h>
+#include "colours.h"
 
 /* Constants */
 #define PORT 9990
@@ -51,6 +52,8 @@ void my_handler_signals(int signal){
 
 
 void create_client(){
+    printf(FRED("Server : Closing the server \n"));
+
     int res, option;
 
     /* Events client*/
@@ -62,7 +65,7 @@ void create_client(){
     /* Create the socket  */
     clientfd = socket(AF_INET, SOCK_STREAM, ONLY);
     if(clientfd == ERROR)
-        perror("Woops, there was an error creating the socket...") ;
+        perror(FRED("Woops, there was an error creating the socket...")) ;
 
     /*  Necesary data for the request */
     client.sin_family = AF_INET;
@@ -75,7 +78,7 @@ void create_client(){
     /* Connect to the server */
     res = connect(clientfd, (struct sockaddr*)&client, sizeof(client));
     if(res == ERROR)
-        perror("Woops, there was an error connecting...");
+        perror(FRED("Woops, there was an error connecting..."));
 
 
     while(flag){
