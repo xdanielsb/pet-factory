@@ -239,14 +239,16 @@ int main(){
     bool load_data_from_scratch = false;
     if(load_data_from_scratch){
          delete_and_create_files();
+         load_data(load_data_from_scratch );
     }else{
         if(!is_file_exist("var/structures.bin") || !is_file_exist("var/hash_table")){
             perror(BOLD(FWHT("User the data does not exist.")));
             perror(BOLD(FWHT("For that reason we are going te create random data for you. ;)")));
-            exit(0);
+            delete_and_create_files();
+            load_data(true);
          }
      }
-    load_data(load_data_from_scratch );
+    
     create_server();
 	return 0;
 }
