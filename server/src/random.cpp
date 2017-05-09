@@ -1,5 +1,5 @@
 //Numuber pets created in the disk
-static unsigned long long NUM_RANDOM_REGISTERS = 10000000; /* 10000000*/
+static unsigned long long NUM_RANDOM_REGISTERS = 1000000; /* 10000000*/
 /*
  * Create random int numbers
  */
@@ -39,7 +39,7 @@ inline  animal create_random_animal(char name[32], const int len) {
     for (int i = 0; i < len; ++i) {
         name[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
     }
-    
+
     name[len] = 0; //Finish string
     animal a1(name, type, age, breed,height, weight, genre);
 

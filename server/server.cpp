@@ -37,6 +37,15 @@ int res;                            /* response of the operations */
 struct sigaction sigIntHandler;     /* Handler */
 int server_code;                    /* Server code */
 
+static map<int,string> mymap_opts = {
+                { 1, "Insert a register." },
+                { 2, "Show a register." },
+                { 3, "Delete a register." },
+                { 4, "Search by name." },
+                { 5, "Watch Clinical history." },
+                };
+
+
 void check_user_option_main_menu(int request, int socketfd ){
     string cadena = "";
 
@@ -53,7 +62,7 @@ void check_user_option_main_menu(int request, int socketfd ){
         string aux = options_main_menu(4, socketfd);
         cadena +=" SEARCH "+ aux +" ";
     }else if(request == 5){     //Show a pet
-        cadena += " HISTORIC_CLINIC ";
+        cadena += " CLINICAL_HISTORY ";
         options_main_menu(5, socketfd);
     }
 
@@ -82,36 +91,6 @@ void my_handler_signals(int signal){
 
     }
 }
-/*
- *
- */
-bool is_file_exist(const char *fileName){
-    ifstream infile(fileName);
-    return infile.good();
-}
-
-/*
- * This function load or create the random data
- */
-void load_data(bool from_scratch){
-    if(!from_scratch){
-        printf(BOLD(FGRN("\t Server: The data has  been read from disk\n")));
-        data = read_file_hash(); //hash_table
-        long long total = 0;
-
-        /* Count registers */
-        for(int i=0; i< size_hash_table; i++)
-            total += data[i].size();
-
-        /* Pointer last register*/
-        LOC = total;
-        total --;
-        printf(BOLD(FGRN("\t Server: The number or registers that were readen from disk were: %lld\n")),total);
-    }else{
-        create_random_data();
-        write_hash_table();
-    }
-}
 
 /*
  * This function hold receive the request of the clients
@@ -124,7 +103,8 @@ void * hold_client (void *ap){
 	    printf(FWHT("\tServer: Waiting for a request ... \n"));
         res = recv(socketfd, &option, sizeof(option), 0);
 
-        printf(FBLU("\tClient %d: send the option: %d \n"), socketfd, option);
+        printf(FBLU("\tClient %d: User select the option: "), socketfd);
+        cout <<  mymap_opts[option] << endl;
         /* This is in case of garbage close that connection */
         if(option >= 6 || option <= 0) {
             printf(FYEL("\nClose client %d \n"), socketfd);
@@ -217,6 +197,14 @@ void create_server(){
 	close(server_code);
 }
 
+/*
+ *
+ */
+bool is_file_exist(const char *fileName){
+    ifstream infile(fileName);
+    return infile.good();
+}
+
 void delete_and_create_files(){
      if(is_file_exist("var/structures.bin")){
         printf(FBLU("Deleting last animals\n"));
@@ -233,22 +221,50 @@ void delete_and_create_files(){
 }
 
 
+
+/*
+ * This function load or create the random data
+ */
+void load_data(bool from_scratch){
+    if(from_scratch){
+        printf(BOLD(FGRN("\t Server: The data has  been read from disk\n")));
+        data = read_file_hash(); //hash_table
+        long long total = 0;
+
+        /* Count registers */
+        for(int i=0; i< size_hash_table; i++)
+            total += data[i].size();
+
+        /* Pointer last register*/
+        LOC = total;
+        total --;
+        printf(BOLD(FGRN("\t Server: The number or registers that were readen from disk were: %lld\n")),total);
+    }else{
+        create_random_data();
+        write_hash_table();
+    }
+}
+
+
 int main(){
     /*    printf("\nADMIN : REMEMBER THAT THE FILE var/structures.bin must exist. \n");*/
 
-    bool load_data_from_scratch = false;
-    if(load_data_from_scratch){
+    bool load_data_from_scratch = true;
+
+    if(load_data_from_scratch == false){
          delete_and_create_files();
-         load_data(load_data_from_scratch );
+         load_data(false);
     }else{
         if(!is_file_exist("var/structures.bin") || !is_file_exist("var/hash_table")){
             perror(BOLD(FWHT("User the data does not exist.")));
             perror(BOLD(FWHT("For that reason we are going te create random data for you. ;)")));
             delete_and_create_files();
+            load_data(false);
+        }else{
             load_data(true);
-         }
+        }
      }
-    
+
     create_server();
 	return 0;
 }

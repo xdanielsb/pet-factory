@@ -29,11 +29,11 @@ bool flag = true;
 void main_menu(){
     printf("\tHello User, Welcome to Pet Factory\n");
     printf("\tThis are the options that we offer:\n");
-    printf("\t\t1. Insert a register \n");
-    printf("\t\t2. Show a register \n");
-    printf("\t\t3. Delete  a register \n");
-    printf("\t\t4. Search for a register \n");
-    printf("\t\t5. See  clinic history \n");
+    printf("\t\t1. Insert a register. \n");
+    printf("\t\t2. Show a register. \n");
+    printf("\t\t3. Delete  a register. \n");
+    printf("\t\t4. Search for a register. \n");
+    printf("\t\t5. Watch  clinical history. \n");
     printf("\t\t6. Salir \n");
 }
 
@@ -51,8 +51,7 @@ void my_handler_signals(int signal){
 
 
 void create_client(){
-    printf(FRED("Server : Closing the server \n"));
-
+    
     int res, option;
 
     /* Events client*/
@@ -63,8 +62,10 @@ void create_client(){
 
     /* Create the socket  */
     clientfd = socket(AF_INET, SOCK_STREAM, ONLY);
-    if(clientfd == ERROR)
+    if(clientfd == ERROR){
         perror(FRED("Woops, there was an error creating the socket...")) ;
+        exit(0);
+    }
 
     /*  Necesary data for the request */
     client.sin_family = AF_INET;
@@ -76,8 +77,10 @@ void create_client(){
 
     /* Connect to the server */
     res = connect(clientfd, (struct sockaddr*)&client, sizeof(client));
-    if(res == ERROR)
+    if(res == ERROR){
         perror(FRED("Woops, there was an error connecting..."));
+        exit(0);
+    }
 
 
     while(flag){
