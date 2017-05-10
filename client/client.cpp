@@ -8,7 +8,7 @@
 #include "colours.h"
 
 /* Constants */
-#define PORT 9990
+#define PORT 9994
 #define DIR "127.0.0.1"
 #define ERROR -1
 #define ONLY 0              /* When there is just one  protocol that supports the socket */
@@ -51,7 +51,7 @@ void my_handler_signals(int signal){
 
 
 void create_client(){
-    
+
     int res, option;
 
     /* Events client*/

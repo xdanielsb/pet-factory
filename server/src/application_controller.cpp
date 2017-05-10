@@ -1,4 +1,32 @@
 /*
+ * Variables and libraries for critical sections
+ */
+
+ //MUTEX
+#include <mutex>
+mutex mtx;
+mutex mtx2;
+
+ //SEMAPHORES
+#include <fcntl.h>
+#include <semaphore.h>
+#define SNAME "/mysem"
+#define NUM_CLIENTS_SAME_TIME 1
+sem_t *sem =  sem_open(SNAME, O_CREAT, 0644, NUM_CLIENTS_SAME_TIME );
+
+  //PIPE
+#define WRITE 1
+#define READ 0
+int pipefd[2];
+
+char mensaje [50];
+int r = pipe(pipefd);
+
+static bool LOCK_INSERTION = false;
+static bool LOCK_DELETION = false;
+static bool LOCK_CLINICAL = false;
+
+/*
  *  This menu is called in architecture client-server
  */
 inline string options_main_menu(int opcion, int socketfd){
@@ -13,8 +41,17 @@ inline string options_main_menu(int opcion, int socketfd){
         printf("\tServer: Data of the animal inserted \n");
         //show_animal(a1);
 
+
+        if(LOCK_INSERTION){
+            cout << "The insertion is lock this gonna take some seconds ..." << endl;
+        }
+        mtx.lock();
+        LOCK_INSERTION = true;
         //Need to receive an animal
         res = insert_animal(a1);
+        mtx.unlock();
+        LOCK_INSERTION = false;
+
         if (res){
             //Buffer that storage the request
             string msj = "The animal has inserted succesffuly.";
@@ -42,7 +79,7 @@ inline string options_main_menu(int opcion, int socketfd){
             //Re send;
             cout << "\t\tServer: The message have not been sent completely. \n";
         }else{
-            cout << "\t\tServer: The animal has been sent. \n";
+            cout << "\t\tServer: The register has been sent. \n";
         }
 
     }
@@ -51,7 +88,15 @@ inline string options_main_menu(int opcion, int socketfd){
         //receive the number of register that the user want to delete
         r = recv(socketfd, &number_register, sizeof(number_register), 0);
         string msj;
+
+        if(LOCK_DELETION){
+            cout << "Hey user delete a register is blocked, this is gonna take some minutes." << endl;
+        }
+        sem_wait(sem);
+        LOCK_DELETION = true;
         bool res = delete_animal(number_register);
+        LOCK_DELETION = false;
+        sem_post(sem);
 
         msj =  (res) ? "The animal has been deleted succesffuly." : "The animal has not been deleted succesffuly.";
 
@@ -84,6 +129,13 @@ inline string options_main_menu(int opcion, int socketfd){
         int number_register;
         //receive the number of register that the user want to display
         r = recv(socketfd, &number_register, sizeof(number_register), 0);
+        mtx2.lock();
+
+        // if(LOCK_CLINICAL){
+        //     cout << "The clinical history is currently blocked."<<endl;
+        // }
+        // write(pipefd[WRITE], "block\0", 5);
+        // LOCK_CLINICAL =true;
 
         animal a1  = show_animal(number_register, 0);
         r = send(socketfd, &a1, sizeof(a1), 0);
@@ -105,6 +157,9 @@ inline string options_main_menu(int opcion, int socketfd){
         }
 
         int pos  = write_animal(a1, number_register);
+    //    read(pipefd[READ], mensaje, 5);
+    //    LOCK_CLINICAL = false;
+        mtx2.unlock();
         printf("Animal written in the pos %d \n", pos);
 
     }

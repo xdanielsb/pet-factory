@@ -1,5 +1,5 @@
 //Numuber pets created in the disk
-static unsigned long long NUM_RANDOM_REGISTERS = 1000000; /* 10000000*/
+static unsigned long long NUM_RANDOM_REGISTERS = 10000000; /* 10000000*/
 /*
  * Create random int numbers
  */

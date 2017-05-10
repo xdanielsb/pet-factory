@@ -8,7 +8,7 @@
 
 
 /* Constants */
-#define PORT 9990
+#define PORT 9994
 #define BACKLOG 8
 #define ERROR -1
 #define NUM_CLIENTS 5
@@ -85,6 +85,11 @@ void my_handler_signals(int signal){
 
         printf(FRED("Server : Closing the server \n"));
         close(server_code);
+
+        printf(FRED("Server : Closing the semaphore\n"));
+        sem_close(sem);
+        sem_unlink(SNAME);
+
         //WRITE THE HASH TABLE IN ANY CASE
         write_hash_table();
         exit(0);
@@ -193,6 +198,12 @@ void create_server(){
 			perror(FRED("There was an error creating the thread."));
 		}
 	}
+
+    /* Wait to finish all threads.*/
+    char valor_devuelto;
+    for (int    i = 0; i < cont_client; i++){
+        pthread_join(hilo[i], (void**) & valor_devuelto);
+    }
 
 	close(server_code);
 }

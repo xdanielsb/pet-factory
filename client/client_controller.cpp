@@ -149,7 +149,7 @@ void show_clinic_history(int clientfd){
         string line;
 
         while (getline(infile, line)){
-            concat += line;
+            concat += line+"\n";
         }
         //printf("\tThis is the hist_clinic that you want to save\n");
         //cout<<(concat);
