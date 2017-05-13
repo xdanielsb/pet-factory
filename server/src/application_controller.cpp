@@ -14,13 +14,6 @@ mutex mtx2;
 #define NUM_CLIENTS_SAME_TIME 1
 sem_t *sem =  sem_open(SNAME, O_CREAT, 0644, NUM_CLIENTS_SAME_TIME );
 
-  //PIPE
-#define WRITE 1
-#define READ 0
-int pipefd[2];
-
-char mensaje [50];
-int r = pipe(pipefd);
 
 static bool LOCK_INSERTION = false;
 static bool LOCK_DELETION = false;
@@ -129,13 +122,12 @@ inline string options_main_menu(int opcion, int socketfd){
         int number_register;
         //receive the number of register that the user want to display
         r = recv(socketfd, &number_register, sizeof(number_register), 0);
-        mtx2.lock();
 
-        // if(LOCK_CLINICAL){
-        //     cout << "The clinical history is currently blocked."<<endl;
-        // }
-        // write(pipefd[WRITE], "block\0", 5);
-        // LOCK_CLINICAL =true;
+        if(LOCK_CLINICAL){
+            cout << "The clinical history is currently blocked."<<endl;
+        }
+        mtx2.lock();
+        LOCK_CLINICAL =true;
 
         animal a1  = show_animal(number_register, 0);
         r = send(socketfd, &a1, sizeof(a1), 0);
@@ -157,8 +149,7 @@ inline string options_main_menu(int opcion, int socketfd){
         }
 
         int pos  = write_animal(a1, number_register);
-    //    read(pipefd[READ], mensaje, 5);
-    //    LOCK_CLINICAL = false;
+        LOCK_CLINICAL = false;
         mtx2.unlock();
         printf("Animal written in the pos %d \n", pos);
 
