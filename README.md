@@ -3,10 +3,7 @@
 
 ### Abstract
 
-In this project 50 million of animals are created in such a way that
-it is ineficient load them in memory, the size of the file is 1.9G
-you can change the default value of 50 million
-"Time depends on the machine".
+In this project 100 million of registers belongs to animals are created in such a way that it is inefficient load them in memory, This project propose a system to create, update, delete read registers in disk  without load the registers in memory. Besides the architecture is client-server so many clients can connect and update registers it's important remark that the system makes control of critical sections using different techniques mention below.
 
 ---
 
@@ -14,7 +11,14 @@ you can change the default value of 50 million
 
 - The architecture is client-server
 - The program was created using POXIS functions
-- Control of critical sections using {Mutex, Semaphores, Named Pipes...}
+- Control of critical sections using
+  - Mutex
+  - Semaphores
+  - Named pipes
+- Parallel tasks  using
+  - pthread
+  - fork - join
+- Shared memory 
 
 ---
 
