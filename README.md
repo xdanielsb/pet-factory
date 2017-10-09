@@ -18,20 +18,6 @@ you can change the default value of 50 million
 
 ---
 
-### Domain model
-
-![Alt Domain Model](docs/class_model.png?raw=true "Domain model")
-
-### Use case model
-
-![Alt Use case Model](docs/use_case.png?raw=true "Use case model")
-
-### Component model
-
-![Alt Component Model](docs/component_model.png?raw=true "Component model")
-
----
-
 ### How to run the application?
 Follow the next steps
 
